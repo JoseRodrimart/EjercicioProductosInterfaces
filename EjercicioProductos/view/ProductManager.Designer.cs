@@ -77,7 +77,7 @@
             this.dgProductos.Location = new System.Drawing.Point(0, 27);
             this.dgProductos.Name = "dgProductos";
             this.dgProductos.RowTemplate.Height = 25;
-            this.dgProductos.Size = new System.Drawing.Size(659, 348);
+            this.dgProductos.Size = new System.Drawing.Size(1005, 573);
             this.dgProductos.TabIndex = 0;
             // 
             // Nombre
@@ -130,7 +130,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(659, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1005, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -207,9 +207,9 @@
             this.toolStripButton1,
             this.toolStripButton2,
             this.toolStripButton3});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 380);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 605);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(659, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1005, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -238,6 +238,7 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Tag = "Crear";
             this.toolStripButton1.Text = "Producto nuevo";
+            this.toolStripButton1.Click += new System.EventHandler(this.OpenProductRegisterForm);
             // 
             // toolStripButton2
             // 
@@ -259,7 +260,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(584, 352);
+            this.button1.Location = new System.Drawing.Point(930, 577);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -271,7 +272,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 405);
+            this.ClientSize = new System.Drawing.Size(1005, 630);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dgProductos);

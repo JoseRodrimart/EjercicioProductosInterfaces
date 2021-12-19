@@ -34,5 +34,11 @@ namespace EjercicioProductos.view
         {
             controller.ListaProductos.Add(new Producto("a","a",1,1,"a",ETipo.RAM));
         }
+
+        private void OpenProductRegisterForm(object sender, EventArgs e)
+        {
+            ProductoRegister registerForm = new ProductoRegister();
+            registerForm.ShowDialog();
+        }
     }
 }
