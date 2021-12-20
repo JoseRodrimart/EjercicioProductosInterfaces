@@ -25,7 +25,6 @@ namespace EjercicioProductos.controller
         //FIN SINGLETON
 
         //HashSet que contiene los productos de nuestro programa. Este tipo de estructura no puede contener repeticiones
-        public HashSet<Producto> Productos { get; set; }
         public BindingList<Producto> ListaProductos { get; set; }
         public BindingSource Source { get; set; } //Enlace de datos
 
@@ -35,8 +34,8 @@ namespace EjercicioProductos.controller
         //Cuando tratamos de registrar un producto, si el id ya existe, lanzamos una excepción
         public void RegistraProducto(Producto producto)
         {
-            if (Productos.Contains(producto)) throw new IdRepetidoException();
-            Productos.Add(producto);
+            if (ListaProductos.Contains(producto)) throw new IdRepetidoException();
+            ListaProductos.Add(producto);
             
         }
 
@@ -45,7 +44,7 @@ namespace EjercicioProductos.controller
         {
             if (CompruebaProducto(producto))
             {
-                return Productos.FirstOrDefault(x =>x.Equals(producto));//(Producto)productos[id];
+                return ListaProductos.FirstOrDefault(x => x.Equals(producto));//(Producto)productos[id];
             }
             else
                 throw new ProductoNoAlmacenadoException();
@@ -59,8 +58,8 @@ namespace EjercicioProductos.controller
             {
                 if (CompruebaProducto(newProducto)) //Si la id se ha alterado, debemos comprobar 
                 {
-                    Productos.Remove(oldProducto);
-                    Productos.Add(newProducto);
+                    ListaProductos.Remove(oldProducto);
+                    ListaProductos.Add(newProducto);
                 }
             }
             else
@@ -72,7 +71,7 @@ namespace EjercicioProductos.controller
         {
             if (CompruebaProducto(producto))
             {
-                Productos.Remove(producto);
+                ListaProductos.Remove(producto);
             }
             else throw new ProductoNoAlmacenadoException();
         }
@@ -80,7 +79,12 @@ namespace EjercicioProductos.controller
         //Devuelve true si ya está presente un producto con esa id
         public bool CompruebaProducto(Producto producto)
         {
-            return Productos.Contains(producto);
+            return ListaProductos.Contains(producto);
+        }
+
+        public bool CompruebaId(String id)
+        {
+            return ListaProductos.Contains(new Producto(id));
         }
     }
 }

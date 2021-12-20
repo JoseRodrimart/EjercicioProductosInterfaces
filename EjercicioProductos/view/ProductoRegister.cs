@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EjercicioProductos.controller;
+using EjercicioProductos.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,9 @@ namespace EjercicioProductos.view
 {
     public partial class ProductoRegister : Form
     {
+        private ProductosController controller = ProductosController.GetInstance();
+        private bool idAvailable = false;
+
         public ProductoRegister()
         {
             InitializeComponent();
@@ -20,25 +25,68 @@ namespace EjercicioProductos.view
 
         private void validateDescription(object sender, EventArgs e)
         {
-            if (tbDescription.Text.Length == 250)
+            if (tbDescripcion.Text.Length == 250)
                 ttCursor.Show("prueba",this);
         }
 
-        private void showToolTip(object sender, EventArgs e)
+        private void bRegistrar_Click(object sender, EventArgs e)
         {
-            //Si se llega a 250 caracteres se muestra
-            ttCursor.Show("prueba", this, 0, 0);
+            try
+            {
+                controller.RegistraProducto(new Producto(tbId.Text,tbNombre.Text,(int)nudCantidad.Value,nudPrecio.Value,tbDescripcion.Text,(ETipo)cbTipo.SelectedIndex));
+                Close();
+            }
+            catch (Exception ex) { Debug.Write(ex.Message); }
         }
 
-        private void EvaluateID(object sender, EventArgs e)
+        private void ValidateRegister()
         {
-            //Comprobamos si la id está disponible
+            if(tbId.Text.Length != 0 && tbNombre.Text.Length != 0 && cbTipo.SelectedItem != null && idAvailable) bRegistrar.Enabled = true;
+            else bRegistrar.Enabled = false;    
         }
 
-        private void CheckNotEmpty(object sender, EventArgs e)
+        private void bCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidateRegister();
+        }
+
+        private void tbNombre_TextChanged(object sender, EventArgs e)
         {
             if (((TextBox)sender).Text == "")
-                errorProvider.SetError((TextBox)sender, "prueba");
+                ErrEmptyName.SetError((TextBox)sender, "el nombre no puede estar vacío");
+            else
+                ErrEmptyName.Clear();
+            ValidateRegister();
+        }
+
+        private void tbId_TextChanged(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text == "")
+            {
+                errEmptyId.Clear();
+                errEmptyId.SetError((TextBox)sender, "El código no puede estar vacío");
+                errNotAvailableId.Clear();
+            }
+            else
+            {
+                errEmptyId.Clear();
+                if (controller.CompruebaId(tbId.Text))
+                {
+                    errNotAvailableId.SetError(tbId, "El código ya está en uso");
+                    idAvailable = false;
+                }
+                else
+                {
+                    errNotAvailableId.Clear();
+                    idAvailable = true;
+                }
+            }
+            ValidateRegister();
         }
     }
 }

@@ -170,6 +170,7 @@
             this.insertarToolStripMenuItem.Name = "insertarToolStripMenuItem";
             this.insertarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.insertarToolStripMenuItem.Text = "Insertar";
+            this.insertarToolStripMenuItem.Click += new System.EventHandler(this.OpenProductRegisterForm);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -279,6 +280,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ProductManager";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProductManager";
             this.Load += new System.EventHandler(this.ProductManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgProductos)).EndInit();

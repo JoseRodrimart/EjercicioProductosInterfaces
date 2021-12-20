@@ -13,12 +13,12 @@ namespace EjercicioProductos.model
         public string Nombre { set; get; }
         public String Id { get; private set; }
         public int Cantidad { set; get; }
-        public int Precio { set; get; }
+        public decimal Precio { set; get; }
         public string Descripcion { set; get; }
         public ETipo Tipo { set; get; }
 
         //Siempre que se crea un Producto, debe contener todos los elementos
-        public Producto(String id, string nombre, int cantidad, int precio, string descripcion, ETipo tipo)
+        public Producto(String id, string nombre, int cantidad, decimal precio, string descripcion, ETipo tipo)
         {
             Id = id;
             Nombre = nombre;
