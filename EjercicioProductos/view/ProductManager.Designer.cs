@@ -36,6 +36,7 @@
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +62,9 @@
             // 
             // dgProductos
             // 
+            this.dgProductos.AllowUserToAddRows = false;
+            this.dgProductos.AllowUserToDeleteRows = false;
+            this.dgProductos.AllowUserToOrderColumns = true;
             this.dgProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -73,10 +77,12 @@
             this.Cantidad,
             this.Precio,
             this.Descripcion,
-            this.Tipo});
+            this.Tipo,
+            this.Seleccionado});
             this.dgProductos.Location = new System.Drawing.Point(0, 27);
             this.dgProductos.Name = "dgProductos";
             this.dgProductos.RowTemplate.Height = 25;
+            this.dgProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgProductos.Size = new System.Drawing.Size(1005, 573);
             this.dgProductos.TabIndex = 0;
             // 
@@ -85,42 +91,42 @@
             this.Nombre.DataPropertyName = "Nombre";
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
             // 
             // Cod
             // 
             this.Cod.DataPropertyName = "Id";
             this.Cod.HeaderText = "Cod.";
             this.Cod.Name = "Cod";
-            this.Cod.ReadOnly = true;
             // 
             // Cantidad
             // 
             this.Cantidad.DataPropertyName = "Cantidad";
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
             // 
             // Precio
             // 
             this.Precio.DataPropertyName = "Precio";
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
-            this.Precio.ReadOnly = true;
             // 
             // Descripcion
             // 
             this.Descripcion.DataPropertyName = "Descripcion";
             this.Descripcion.HeaderText = "Descripción";
             this.Descripcion.Name = "Descripcion";
-            this.Descripcion.ReadOnly = true;
             // 
             // Tipo
             // 
             this.Tipo.DataPropertyName = "Tipo";
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
-            this.Tipo.ReadOnly = true;
+            // 
+            // Seleccionado
+            // 
+            this.Seleccionado.FillWeight = 25F;
+            this.Seleccionado.HeaderText = "";
+            this.Seleccionado.Name = "Seleccionado";
             // 
             // menuStrip1
             // 
@@ -258,6 +264,7 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton3.Text = "Eliminar";
+            this.toolStripButton3.Click += new System.EventHandler(this.DeleteSelectedItems);
             // 
             // button1
             // 
@@ -313,12 +320,13 @@
         private ToolStripButton toolStripButton2;
         private ToolStripButton toolStripButton3;
         private ToolStripSeparator toolStripSeparator1;
+        private Button button1;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Cod;
         private DataGridViewTextBoxColumn Cantidad;
         private DataGridViewTextBoxColumn Precio;
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn Tipo;
-        private Button button1;
+        private DataGridViewCheckBoxColumn Seleccionado;
     }
 }

@@ -21,6 +21,8 @@ namespace EjercicioProductos.controller
         }
         private ProductosController() {
             ListaProductos = new BindingList<Producto>();
+            ListaProductos.AllowEdit = true;
+            ListaProductos.AllowRemove = true;
         }
         //FIN SINGLETON
 

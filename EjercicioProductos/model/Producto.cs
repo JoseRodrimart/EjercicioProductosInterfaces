@@ -31,12 +31,22 @@ namespace EjercicioProductos.model
         public Producto(string id)
         {
             Id = id;
+            Nombre = " ";
+            Cantidad = 0;
+            Descripcion = " ";
+            Precio = 0;
+            Tipo = ETipo.RAM;
         }
 
         //Dos productos son iguales si su id coincide
         public override bool Equals(object? obj)
         {
             return obj is Producto producto && Id == producto.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
 
         //VER OVERRIDE HASHSET
