@@ -15,6 +15,8 @@ namespace EjercicioProductos.controller
     {
         //Esta clase sigue el patrón SINGLETON, accedemos desde todos los puntos de nuestro programa a la misma referencia.
         private static readonly ProductosController controller = new ProductosController();
+        public List<String> ProductosSeleccionados { get; private set; } = new List<string>();
+
         public static ProductosController GetInstance()
         {
             return controller;
@@ -69,13 +71,22 @@ namespace EjercicioProductos.controller
         }
 
         //DELETE
-        public void EliminaProducto(Producto producto)
+        public void EliminaProducto(String cod)
         {
+            Producto producto = new Producto(cod);
             if (CompruebaProducto(producto))
             {
                 ListaProductos.Remove(producto);
+                this.ProductosSeleccionados.Remove(cod);
             }
             else throw new ProductoNoAlmacenadoException();
+        }
+
+        internal void RemoveSelectedProducts()
+        {
+            String[] list = this.ProductosSeleccionados.ToArray();
+            foreach(string cod in list)
+                this.EliminaProducto(cod);
         }
 
         //Devuelve true si ya está presente un producto con esa id

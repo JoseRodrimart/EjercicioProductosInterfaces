@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace EjercicioProductos.model
 {
     //Modelo de producto
-    internal class Producto
+    public class Producto
     {
         public string Nombre { set; get; }
         public String Id { get; private set; }
@@ -53,6 +53,6 @@ namespace EjercicioProductos.model
     }
 
     //Enumerador con los posibles tipos de producto
-    internal enum ETipo { Procesador, PlacaBase, RAM, TarjetaGrafica, FuentaAlimentacion, DiscoDuro }
+    public enum ETipo { Procesador, PlacaBase, RAM, TarjetaGrafica, FuentaAlimentacion, DiscoDuro }
 
 }

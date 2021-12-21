@@ -19,9 +19,15 @@ namespace EjercicioProductos.view
         private bool idAvailable = false;
         private int iconPadding = 5;
 
+        //Si se construye sin parámetros, crea uno nuevo
         public ProductoRegister()
         {
             InitializeComponent();
+        }
+        //SI se construye con parámetros permite editar varios
+        public ProductoRegister(List<Producto> productos)
+        {
+            
         }
 
         private void validateDescription(object sender, EventArgs e)

@@ -48,12 +48,12 @@ namespace EjercicioProductos.view
         //Cuando se pulsa el botón de eliminar, se borran las filas con el checkbox clicado
         private void DeleteSelectedItems(object sender, EventArgs e)
         {
-            List<int> rowsToDelete = GetSelectedIndexes();
-            if (rowsToDelete.Count > 0)
+            int rowsToDelete = controller.ProductosSeleccionados.Count;
+            if (rowsToDelete > 0)
             {
-                var decision = MessageBox.Show("Desea eliminar " + rowsToDelete.Count + " productos de la lista?", "Confirm Delete!!", MessageBoxButtons.YesNo);
+                var decision = MessageBox.Show("Desea eliminar " + rowsToDelete + " productos de la lista?", "Confirm Delete!!", MessageBoxButtons.YesNo);
                 if (decision == DialogResult.Yes)
-                    rowsToDelete.ForEach(x => dgProductos.Rows.RemoveAt(x));
+                    controller.RemoveSelectedProducts();
             }
             else
                 MessageBox.Show("No hay productos seleccionado, utilize la casilla de la derecha de los productos para seleccionarlos.",
@@ -62,7 +62,34 @@ namespace EjercicioProductos.view
                                 MessageBoxIcon.Information);
         }
 
-        //Devuelve los índices de las filas seleccionadas
+        //Añade o elimina el codigo de producto del producto actual seleccionado de la lista de productos seleccionados
+        private void HandleDataGridCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
+            DataGridViewRow row = dgProductos.Rows[e.RowIndex];
+            DataGridViewTextBoxCell cell = row.Cells["Cod"] as DataGridViewTextBoxCell;
+            String cod = cell.Value as String;
+            switch (dgProductos.CurrentCell.OwningColumn.Name)
+            {
+                case "seleccionado":
+                    if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
+                        controller.ProductosSeleccionados.Add(cod);
+                    else
+                        controller.ProductosSeleccionados.Remove(cod);
+                    break;
+                case "iconoEditar": 
+                    break;
+                case "iconoEliminar": 
+                    controller.EliminaProducto(cod);
+                    break;
+                default: break;
+            }
+
+            
+        }
+
+        //Deprecated
+        //Devuelve los índices de las filas seleccionadas 
         private List<int> GetSelectedIndexes()
         {
             dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
@@ -75,6 +102,25 @@ namespace EjercicioProductos.view
             selectedRowsIndexes.Sort();
             selectedRowsIndexes.Reverse();
             return selectedRowsIndexes;
+        }
+
+        private List<string> GetSelectedCod()
+        {
+            dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
+            List<string> selectedRowsCod = new List<string>();
+            foreach (DataGridViewRow row in dgProductos.Rows)
+            {
+                if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
+                {
+                    DataGridViewTextBoxCell cell = row.Cells["Cod"] as DataGridViewTextBoxCell;
+                    String cod = cell.Value as String;
+                    selectedRowsCod.Add(cod);
+
+                }
+            }
+            selectedRowsCod.Sort();
+            selectedRowsCod.Reverse();
+            return selectedRowsCod;
         }
     }
 }

@@ -30,13 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManager));
             this.dgProductos = new System.Windows.Forms.DataGridView();
+            this.seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.iconoEditar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.iconoEliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,19 +74,29 @@
             this.dgProductos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.seleccionado,
             this.Nombre,
             this.Cod,
             this.Cantidad,
             this.Precio,
             this.Descripcion,
             this.Tipo,
-            this.Seleccionado});
+            this.iconoEditar,
+            this.iconoEliminar});
             this.dgProductos.Location = new System.Drawing.Point(0, 27);
             this.dgProductos.Name = "dgProductos";
+            this.dgProductos.RowHeadersVisible = false;
             this.dgProductos.RowTemplate.Height = 25;
             this.dgProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgProductos.Size = new System.Drawing.Size(1005, 573);
             this.dgProductos.TabIndex = 0;
+            this.dgProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HandleDataGridCellClick);
+            // 
+            // seleccionado
+            // 
+            this.seleccionado.FillWeight = 20F;
+            this.seleccionado.HeaderText = "";
+            this.seleccionado.Name = "seleccionado";
             // 
             // Nombre
             // 
@@ -95,7 +107,7 @@
             // Cod
             // 
             this.Cod.DataPropertyName = "Id";
-            this.Cod.HeaderText = "Cod.";
+            this.Cod.HeaderText = "Cod";
             this.Cod.Name = "Cod";
             // 
             // Cantidad
@@ -122,11 +134,20 @@
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
             // 
-            // Seleccionado
+            // iconoEditar
             // 
-            this.Seleccionado.FillWeight = 25F;
-            this.Seleccionado.HeaderText = "";
-            this.Seleccionado.Name = "Seleccionado";
+            this.iconoEditar.FillWeight = 20F;
+            this.iconoEditar.HeaderText = "";
+            this.iconoEditar.Image = ((System.Drawing.Image)(resources.GetObject("iconoEditar.Image")));
+            this.iconoEditar.Name = "iconoEditar";
+            // 
+            // iconoEliminar
+            // 
+            this.iconoEliminar.FillWeight = 20F;
+            this.iconoEliminar.HeaderText = "";
+            this.iconoEliminar.Image = ((System.Drawing.Image)(resources.GetObject("iconoEliminar.Image")));
+            this.iconoEliminar.Name = "iconoEliminar";
+            this.iconoEliminar.ToolTipText = "eliminar producto";
             // 
             // menuStrip1
             // 
@@ -285,10 +306,11 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dgProductos);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ProductManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProductManager";
+            this.Text = "Computer Product Manager 0.1";
             this.Load += new System.EventHandler(this.ProductManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgProductos)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -321,12 +343,14 @@
         private ToolStripButton toolStripButton3;
         private ToolStripSeparator toolStripSeparator1;
         private Button button1;
+        private DataGridViewCheckBoxColumn seleccionado;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Cod;
         private DataGridViewTextBoxColumn Cantidad;
         private DataGridViewTextBoxColumn Precio;
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn Tipo;
-        private DataGridViewCheckBoxColumn Seleccionado;
+        private DataGridViewImageColumn iconoEditar;
+        private DataGridViewImageColumn iconoEliminar;
     }
 }

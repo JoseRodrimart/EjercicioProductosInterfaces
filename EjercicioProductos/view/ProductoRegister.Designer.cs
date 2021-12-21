@@ -284,6 +284,7 @@
             this.Controls.Add(this.IId);
             this.Controls.Add(this.tbNombre);
             this.Controls.Add(this.lNombre);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 0);
             this.Name = "ProductoRegister";
@@ -314,7 +315,6 @@
         private Label lTipo;
         private ComboBox cbTipo;
         private Label label2;
-        private Button bRegistrar;
         private Button bCancelar;
         private NumericUpDown nudCantidad;
         private NumericUpDown nudPrecio;
@@ -323,5 +323,6 @@
         private ErrorProvider errNotAvailableId;
         private ErrorProvider errorProvider1;
         private ErrorProvider ErrEmptyName;
+        protected Button bRegistrar;
     }
 }
