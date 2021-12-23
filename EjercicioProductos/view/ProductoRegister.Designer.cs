@@ -40,12 +40,12 @@
             this.tbDescripcion = new System.Windows.Forms.TextBox();
             this.lTipo = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lInternalTitle = new System.Windows.Forms.Label();
             this.bRegistrar = new System.Windows.Forms.Button();
             this.bCancelar = new System.Windows.Forms.Button();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.nudPrecio = new System.Windows.Forms.NumericUpDown();
-            this.ttCursor = new System.Windows.Forms.ToolTip(this.components);
+            this.ttCursorCod = new System.Windows.Forms.ToolTip(this.components);
             this.errEmptyId = new System.Windows.Forms.ErrorProvider(this.components);
             this.errNotAvailableId = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -61,40 +61,41 @@
             // lNombre
             // 
             this.lNombre.AutoSize = true;
-            this.lNombre.Location = new System.Drawing.Point(73, 87);
+            this.lNombre.Location = new System.Drawing.Point(73, 119);
             this.lNombre.Name = "lNombre";
-            this.lNombre.Size = new System.Drawing.Size(51, 15);
+            this.lNombre.Size = new System.Drawing.Size(59, 15);
             this.lNombre.TabIndex = 0;
-            this.lNombre.Text = "Nombre";
+            this.lNombre.Text = "Nombre *";
             // 
             // tbNombre
             // 
             this.tbNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbNombre.Location = new System.Drawing.Point(148, 84);
+            this.tbNombre.Location = new System.Drawing.Point(148, 116);
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(252, 23);
-            this.tbNombre.TabIndex = 1;
+            this.tbNombre.TabIndex = 3;
             this.tbNombre.TextChanged += new System.EventHandler(this.tbNombre_TextChanged);
             this.tbNombre.Leave += new System.EventHandler(this.tbNombre_TextChanged);
             // 
             // IId
             // 
             this.IId.AutoSize = true;
-            this.IId.Location = new System.Drawing.Point(73, 119);
+            this.IId.Location = new System.Drawing.Point(73, 87);
             this.IId.Name = "IId";
-            this.IId.Size = new System.Drawing.Size(49, 15);
+            this.IId.Size = new System.Drawing.Size(54, 15);
             this.IId.TabIndex = 2;
-            this.IId.Text = "Código ";
+            this.IId.Text = "Código *";
+            this.ttCursorCod.SetToolTip(this.IId, "El código es único para cada producto y no puede repetirse");
             // 
             // tbId
             // 
             this.tbId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbId.Location = new System.Drawing.Point(148, 116);
+            this.tbId.Location = new System.Drawing.Point(148, 84);
             this.tbId.Name = "tbId";
             this.tbId.Size = new System.Drawing.Size(252, 23);
-            this.tbId.TabIndex = 3;
+            this.tbId.TabIndex = 1;
             this.tbId.TextChanged += new System.EventHandler(this.tbId_TextChanged);
             this.tbId.Leave += new System.EventHandler(this.tbId_TextChanged);
             // 
@@ -103,18 +104,18 @@
             this.lCantidad.AutoSize = true;
             this.lCantidad.Location = new System.Drawing.Point(73, 151);
             this.lCantidad.Name = "lCantidad";
-            this.lCantidad.Size = new System.Drawing.Size(55, 15);
+            this.lCantidad.Size = new System.Drawing.Size(63, 15);
             this.lCantidad.TabIndex = 4;
-            this.lCantidad.Text = "Cantidad";
+            this.lCantidad.Text = "Cantidad *";
             // 
             // lPrecio
             // 
             this.lPrecio.AutoSize = true;
             this.lPrecio.Location = new System.Drawing.Point(73, 183);
             this.lPrecio.Name = "lPrecio";
-            this.lPrecio.Size = new System.Drawing.Size(40, 15);
+            this.lPrecio.Size = new System.Drawing.Size(48, 15);
             this.lPrecio.TabIndex = 6;
-            this.lPrecio.Text = "Precio";
+            this.lPrecio.Text = "Precio *";
             // 
             // label1
             // 
@@ -142,9 +143,9 @@
             this.lTipo.AutoSize = true;
             this.lTipo.Location = new System.Drawing.Point(73, 215);
             this.lTipo.Name = "lTipo";
-            this.lTipo.Size = new System.Drawing.Size(30, 15);
+            this.lTipo.Size = new System.Drawing.Size(38, 15);
             this.lTipo.TabIndex = 10;
-            this.lTipo.Text = "Tipo";
+            this.lTipo.Text = "Tipo *";
             // 
             // cbTipo
             // 
@@ -165,15 +166,15 @@
             this.cbTipo.ValueMember = "Seleccione";
             this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
             // 
-            // label2
+            // lInternalTitle
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(73, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(229, 25);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Registrar nuevo producto:";
+            this.lInternalTitle.AutoSize = true;
+            this.lInternalTitle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lInternalTitle.Location = new System.Drawing.Point(73, 31);
+            this.lInternalTitle.Name = "lInternalTitle";
+            this.lInternalTitle.Size = new System.Drawing.Size(229, 25);
+            this.lInternalTitle.TabIndex = 12;
+            this.lInternalTitle.Text = "Registrar nuevo producto:";
             // 
             // bRegistrar
             // 
@@ -185,7 +186,7 @@
             this.bRegistrar.TabIndex = 13;
             this.bRegistrar.Text = "Registrar";
             this.bRegistrar.UseVisualStyleBackColor = true;
-            this.bRegistrar.Click += new System.EventHandler(this.bRegistrar_Click);
+            this.bRegistrar.Click += new System.EventHandler(this.bAccept_Click);
             // 
             // bCancelar
             // 
@@ -238,10 +239,10 @@
             0,
             0});
             // 
-            // ttCursor
+            // ttCursorCod
             // 
-            this.ttCursor.IsBalloon = true;
-            this.ttCursor.ToolTipTitle = "TItulo";
+            this.ttCursorCod.IsBalloon = true;
+            this.ttCursorCod.ToolTipTitle = "TItulo";
             // 
             // errEmptyId
             // 
@@ -273,7 +274,7 @@
             this.Controls.Add(this.nudCantidad);
             this.Controls.Add(this.bCancelar);
             this.Controls.Add(this.bRegistrar);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lInternalTitle);
             this.Controls.Add(this.cbTipo);
             this.Controls.Add(this.lTipo);
             this.Controls.Add(this.tbDescripcion);
@@ -290,7 +291,7 @@
             this.Name = "ProductoRegister";
             this.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProductoRegister";
+            this.Text = "Registro de nuevo producto";
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errEmptyId)).EndInit();
@@ -305,24 +306,24 @@
         #endregion
 
         private Label lNombre;
-        private TextBox tbNombre;
-        private Label IId;
-        private TextBox tbId;
         private Label lCantidad;
         private Label lPrecio;
         private Label label1;
-        private TextBox tbDescripcion;
         private Label lTipo;
-        private ComboBox cbTipo;
-        private Label label2;
         private Button bCancelar;
-        private NumericUpDown nudCantidad;
-        private NumericUpDown nudPrecio;
-        private ToolTip ttCursor;
         private ErrorProvider errEmptyId;
-        private ErrorProvider errNotAvailableId;
         private ErrorProvider errorProvider1;
         private ErrorProvider ErrEmptyName;
         protected Button bRegistrar;
+        protected TextBox tbNombre;
+        protected TextBox tbId;
+        protected TextBox tbDescripcion;
+        protected ComboBox cbTipo;
+        protected NumericUpDown nudCantidad;
+        protected NumericUpDown nudPrecio;
+        protected ErrorProvider errNotAvailableId;
+        protected Label lInternalTitle;
+        protected Label IId;
+        protected ToolTip ttCursorCod;
     }
 }

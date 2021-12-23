@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManager));
             this.dgProductos = new System.Windows.Forms.DataGridView();
             this.seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +57,8 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgProductos)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -75,8 +77,8 @@
             this.dgProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.seleccionado,
-            this.Nombre,
             this.Cod,
+            this.Nombre,
             this.Cantidad,
             this.Precio,
             this.Descripcion,
@@ -98,17 +100,17 @@
             this.seleccionado.HeaderText = "";
             this.seleccionado.Name = "seleccionado";
             // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            // 
             // Cod
             // 
             this.Cod.DataPropertyName = "Id";
             this.Cod.HeaderText = "Cod";
             this.Cod.Name = "Cod";
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
             // 
             // Cantidad
             // 
@@ -197,7 +199,7 @@
             this.insertarToolStripMenuItem.Name = "insertarToolStripMenuItem";
             this.insertarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.insertarToolStripMenuItem.Text = "Insertar";
-            this.insertarToolStripMenuItem.Click += new System.EventHandler(this.OpenProductRegisterForm);
+            this.insertarToolStripMenuItem.Click += new System.EventHandler(this.RegisterProduct);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -266,7 +268,7 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Tag = "Crear";
             this.toolStripButton1.Text = "Producto nuevo";
-            this.toolStripButton1.Click += new System.EventHandler(this.OpenProductRegisterForm);
+            this.toolStripButton1.Click += new System.EventHandler(this.RegisterProduct);
             // 
             // toolStripButton2
             // 
@@ -276,6 +278,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "Editar";
+            this.toolStripButton2.Click += new System.EventHandler(this.EditSelectedProducts);
             // 
             // toolStripButton3
             // 
@@ -295,13 +298,35 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.CreateDemoProduct);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(849, 577);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.CreateDemoProductB);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(768, 577);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.CreateDemoProductC);
             // 
             // ProductManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 630);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dgProductos);
@@ -344,13 +369,15 @@
         private ToolStripSeparator toolStripSeparator1;
         private Button button1;
         private DataGridViewCheckBoxColumn seleccionado;
-        private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Cod;
+        private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Cantidad;
         private DataGridViewTextBoxColumn Precio;
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn Tipo;
         private DataGridViewImageColumn iconoEditar;
         private DataGridViewImageColumn iconoEliminar;
+        private Button button2;
+        private Button button3;
     }
 }

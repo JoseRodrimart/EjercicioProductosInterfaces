@@ -15,7 +15,7 @@ namespace EjercicioProductos.view
 {
     public partial class ProductoRegister : Form
     {
-        private ProductosController controller = ProductosController.GetInstance();
+        protected ProductosController controller; 
         private bool idAvailable = false;
         private int iconPadding = 5;
 
@@ -23,20 +23,21 @@ namespace EjercicioProductos.view
         public ProductoRegister()
         {
             InitializeComponent();
+            controller = ProductosController.GetInstance();
         }
         //SI se construye con parámetros permite editar varios
         public ProductoRegister(List<Producto> productos)
         {
-            
+            controller = ProductosController.GetInstance();
         }
 
         private void validateDescription(object sender, EventArgs e)
         {
             if (tbDescripcion.Text.Length == 250)
-                ttCursor.Show("prueba",this);
+                ttCursorCod.Show("prueba",this);
         }
 
-        private void bRegistrar_Click(object sender, EventArgs e)
+        protected virtual void bAccept_Click(object sender, EventArgs e)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace EjercicioProductos.view
             catch (Exception ex) { Debug.Write(ex.Message); }
         }
 
-        private void ValidateRegister()
+        protected virtual void ValidateRegister()
         {
             if(tbId.Text.Length != 0 && tbNombre.Text.Length != 0 && cbTipo.SelectedItem != null && idAvailable) bRegistrar.Enabled = true;
             else bRegistrar.Enabled = false;    
@@ -74,7 +75,7 @@ namespace EjercicioProductos.view
             ValidateRegister();
         }
 
-        private void tbId_TextChanged(object sender, EventArgs e)
+        protected virtual void tbId_TextChanged(object sender, EventArgs e)
         {
             if (((TextBox)sender).Text == "")
             {

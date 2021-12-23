@@ -11,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace EjercicioProductos.controller
 {
-    internal class ProductosController
+    public class ProductosController
     {
         //Esta clase sigue el patrón SINGLETON, accedemos desde todos los puntos de nuestro programa a la misma referencia.
         private static readonly ProductosController controller = new ProductosController();
-        public List<String> ProductosSeleccionados { get; private set; } = new List<string>();
 
         public static ProductosController GetInstance()
         {
@@ -28,9 +27,11 @@ namespace EjercicioProductos.controller
         }
         //FIN SINGLETON
 
-        //HashSet que contiene los productos de nuestro programa. Este tipo de estructura no puede contener repeticiones
+        //List que contiene los productos de nuestro programa
         public BindingList<Producto> ListaProductos { get; set; }
-        public BindingSource Source { get; set; } //Enlace de datos
+
+        //List que contiene los códigos de los productos seleccionados actualmente
+        public List<String> ProductosSeleccionados { get; private set; } = new List<string>();
 
         //CRUD de productos
 
@@ -44,8 +45,9 @@ namespace EjercicioProductos.controller
         }
 
         //READ
-        public Producto BuscaProducto(Producto producto)
+        public Producto BuscaProducto(String codProducto)
         {
+            Producto producto = new Producto(codProducto);
             if (CompruebaProducto(producto))
             {
                 return ListaProductos.FirstOrDefault(x => x.Equals(producto));//(Producto)productos[id];
@@ -56,15 +58,17 @@ namespace EjercicioProductos.controller
 
         //UPDATE
         //Edita un producto, y permite cambiar la id si la nueva es diferente a la anterior, lanza una excepción si la id seleccionada no está disponible
-        public void editaProducto(Producto oldProducto, Producto newProducto)
+        public void editaProducto(Producto editedProduct)
         {
-            if (CompruebaProducto(oldProducto)) //Primero comprobamos que si esté el producto que buscamos
+            if (CompruebaProducto(editedProduct)) //Primero comprobamos que si esté el producto que buscamos
             {
-                if (CompruebaProducto(newProducto)) //Si la id se ha alterado, debemos comprobar 
-                {
-                    ListaProductos.Remove(oldProducto);
-                    ListaProductos.Add(newProducto);
-                }
+                int index = ListaProductos.IndexOf(editedProduct);
+                ListaProductos[index].Nombre = editedProduct.Nombre;
+                ListaProductos[index].Precio = editedProduct.Precio;
+                ListaProductos[index].Cantidad = editedProduct.Cantidad;
+                ListaProductos[index].Descripcion = editedProduct.Descripcion;
+                ListaProductos[index].Tipo = editedProduct.Tipo;
+                ListaProductos.ResetBindings(); //Notifica a la vista de los cambios realizados
             }
             else
                 throw new ProductoNoAlmacenadoException();
@@ -98,6 +102,14 @@ namespace EjercicioProductos.controller
         public bool CompruebaId(String id)
         {
             return ListaProductos.Contains(new Producto(id));
+        }
+
+        //Obtiene los productos correspondientes a la lista de codigos de los productos seleccionados
+        internal List<Producto> GetSelectedProducts()
+        {
+            List<Producto> products = new List<Producto> ();
+            ProductosSeleccionados.ForEach(cod => products.Add(this.BuscaProducto(cod)));
+            return products;
         }
     }
 }
