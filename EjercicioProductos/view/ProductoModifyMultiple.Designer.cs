@@ -15,11 +15,12 @@ namespace EjercicioProductos.view
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // bRegistrar
             // 
-            this.bRegistrar.Location = new System.Drawing.Point(260, 358);
+            this.bRegistrar.Location = new System.Drawing.Point(260, 680);
             this.bRegistrar.Size = new System.Drawing.Size(125, 23);
             this.bRegistrar.Text = "Guardar cambios";
             this.bRegistrar.Click += new System.EventHandler(this.bRegistrar_Click);
@@ -35,9 +36,9 @@ namespace EjercicioProductos.view
             // 
             // bNext
             // 
-            this.bNext.Location = new System.Drawing.Point(443, 179);
+            this.bNext.Location = new System.Drawing.Point(443, 301);
             this.bNext.Name = "bNext";
-            this.bNext.Size = new System.Drawing.Size(23, 23);
+            this.bNext.Size = new System.Drawing.Size(23, 59);
             this.bNext.TabIndex = 16;
             this.bNext.Text = ">";
             this.bNext.UseVisualStyleBackColor = true;
@@ -45,9 +46,9 @@ namespace EjercicioProductos.view
             // 
             // bPrevious
             // 
-            this.bPrevious.Location = new System.Drawing.Point(23, 179);
+            this.bPrevious.Location = new System.Drawing.Point(23, 301);
             this.bPrevious.Name = "bPrevious";
-            this.bPrevious.Size = new System.Drawing.Size(23, 23);
+            this.bPrevious.Size = new System.Drawing.Size(23, 59);
             this.bPrevious.TabIndex = 17;
             this.bPrevious.Text = "<";
             this.bPrevious.UseVisualStyleBackColor = true;
@@ -57,11 +58,13 @@ namespace EjercicioProductos.view
             // ProductoModifyMultiple
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.ClientSize = new System.Drawing.Size(484, 393);
+            this.ClientSize = new System.Drawing.Size(484, 715);
             this.Controls.Add(this.bPrevious);
             this.Controls.Add(this.bNext);
             this.Name = "ProductoModifyMultiple";
             this.Text = "Modificación productos";
+            this.Controls.SetChildIndex(this.pbImage, 0);
+            this.Controls.SetChildIndex(this.button1, 0);
             this.Controls.SetChildIndex(this.IId, 0);
             this.Controls.SetChildIndex(this.tbNombre, 0);
             this.Controls.SetChildIndex(this.tbId, 0);
@@ -76,6 +79,7 @@ namespace EjercicioProductos.view
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

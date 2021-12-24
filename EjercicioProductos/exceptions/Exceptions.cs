@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,21 @@ namespace EjercicioProductos.exceptions
         }
 
         public ProductoNoAlmacenadoException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
+    }
+
+    internal class FileDoesNotContainProducts : Exception
+    {
+        public FileDoesNotContainProducts()
+        {
+        }
+
+        public FileDoesNotContainProducts(string? message) : base(message)
+        {
+        }
+
+        public FileDoesNotContainProducts(string? message, Exception? innerException) : base(message, innerException)
         {
         }
     }

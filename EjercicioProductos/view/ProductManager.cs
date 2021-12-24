@@ -31,7 +31,7 @@ namespace EjercicioProductos.view
         {
             //dgProductos.DataSource = null;
             //dgProductos.DataSource = controller.ListaProductos;
-        
+
         }
 
         //Gestiona las pulsaciones en celdas del datagrid
@@ -49,12 +49,12 @@ namespace EjercicioProductos.view
                     else
                         controller.ProductosSeleccionados.Remove(cod);
                     break;
-                
+
                 case "iconoEditar":
                     ProductoModify pr = new ProductoModify(cod);
                     pr.ShowDialog();
                     break;
-                
+
                 case "iconoEliminar":
                     controller.EliminaProducto(cod);
                     break;
@@ -112,72 +112,81 @@ namespace EjercicioProductos.view
                                 MessageBoxIcon.Information);
         }
 
+
+
+
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProduct(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("a", "a", 1, 1, "a", ETipo.RAM));
+            controller.ListaProductos.Add(new Producto("a", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductB(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("b", "a", 1, 1, "a", ETipo.RAM));
+            controller.ListaProductos.Add(new Producto("b", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }//Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductC(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("c", "a", 1, 1, "a", ETipo.RAM));
+            controller.ListaProductos.Add(new Producto("c", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Deprecated
-        //Devuelve los índices de las filas seleccionadas 
-        private List<int> GetSelectedIndexes()
+        private void OpenImportDialog(object sender, EventArgs e)
         {
-            dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
-            List<int> selectedRowsIndexes = new List<int>();
-            foreach (DataGridViewRow row in dgProductos.Rows)
+            if (dImport.ShowDialog() == DialogResult.OK)
             {
-                if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
-                    selectedRowsIndexes.Add(row.Index);
-            }
-            selectedRowsIndexes.Sort();
-            selectedRowsIndexes.Reverse();
-            return selectedRowsIndexes;
-        }
-
-        private List<string> GetSelectedCod()
-        {
-            dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
-            List<string> selectedRowsCod = new List<string>();
-            foreach (DataGridViewRow row in dgProductos.Rows)
-            {
-                if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
+                try
                 {
-                    DataGridViewTextBoxCell cell = row.Cells["Cod"] as DataGridViewTextBoxCell;
-                    String cod = cell.Value as String;
-                    selectedRowsCod.Add(cod);
-
+                    List<Producto> productosImportados = controller.ImportCsv(dImport.OpenFile());
+                    int repeticiones = controller.CuentaRepeticiones(productosImportados);
+                    if (repeticiones > 0)
+                    {
+                        if (MessageBox.Show("Se van a sobreescribir " + repeticiones + " productos existentes. ¿Desea continuar con la importación?",
+                                "Productos ya existentes",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            controller.RegistraOSobreescribe(productosImportados);
+                        }
+                    }
+                    else controller.RegistraOSobreescribe(productosImportados);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Se ha producido un error al importar el fichero",
+                                "Error durante la importación",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                }
+            }  
+        }
+
+        private void OpenExportDialog(object sender, EventArgs e)
+        {
+            if (controller.ListaProductos.Count > 0)
+            {
+                if (dExport.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        controller.ExportToCsv(dExport.OpenFile());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Se ha producido un error durante la exportación",
+                                    "Error durante la exportación",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    }
+                }
+                    
             }
-            return selectedRowsCod;
+            else MessageBox.Show("No hay productos para exportar.",
+                                "Lista de productos vacía",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
         }
     }
 }

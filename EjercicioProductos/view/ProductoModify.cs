@@ -10,7 +10,7 @@ namespace EjercicioProductos.view
 {
     public partial class ProductoModify : ProductoRegister
     {
-        private Producto oldProduct;
+        private Producto product;
 
         //Para gestionar la edición múltiple, colocamos un indicador de cuantos productos de la lista actual se han modificado (x/n)
         /*protected ProductoModify() : base()
@@ -23,13 +23,14 @@ namespace EjercicioProductos.view
 
         public ProductoModify(String codProducto) : base()
         {
-            oldProduct = controller.BuscaProducto(codProducto);
+            product = controller.BuscaProducto(codProducto);
             bRegistrar.Text = "Modificar";
-            tbNombre.Text = oldProduct.Nombre;
-            tbId.Text = oldProduct.Id;
-            nudCantidad.Value = oldProduct.Cantidad;
-            cbTipo.SelectedIndex = (int)oldProduct.Tipo;
-            tbDescripcion.Text = oldProduct.Descripcion;
+            tbNombre.Text = product.Nombre;
+            tbId.Text = product.Id;
+            nudCantidad.Value = product.Cantidad;
+            cbTipo.SelectedIndex = (int)product.Tipo;
+            tbDescripcion.Text = product.Descripcion;
+            pbImage.Image = product.Imagen;
             tbId.Enabled = false;
         }
 
@@ -46,13 +47,20 @@ namespace EjercicioProductos.view
 
         protected override void bAccept_Click(object sender, EventArgs e)
         {
-            Producto newProduct = new Producto(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (ETipo)cbTipo.SelectedIndex);
+            StoreCachedImage();
+            Producto newProduct = new Producto(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (ETipo)cbTipo.SelectedIndex, Image);
             try
             {
                 controller.editaProducto(newProduct);
                 Close();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
+        }
+
+        private void bRegistrar_Click(object sender, EventArgs e)
+        {
+            StoreCachedImage();
+
         }
     }
 }

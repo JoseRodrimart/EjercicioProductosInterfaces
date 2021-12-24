@@ -79,5 +79,15 @@ namespace EjercicioProductos.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap placeholderProduct {
+            get {
+                object obj = ResourceManager.GetObject("placeholderProduct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

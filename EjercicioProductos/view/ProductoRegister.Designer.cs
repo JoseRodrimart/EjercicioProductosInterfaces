@@ -50,12 +50,18 @@
             this.errNotAvailableId = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrEmptyName = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lImagen = new System.Windows.Forms.Label();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.dialogImagePicker = new System.Windows.Forms.OpenFileDialog();
+            this.tbImagePath = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errEmptyId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrEmptyName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // lNombre
@@ -73,7 +79,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNombre.Location = new System.Drawing.Point(148, 116);
             this.tbNombre.Name = "tbNombre";
-            this.tbNombre.Size = new System.Drawing.Size(252, 23);
+            this.tbNombre.Size = new System.Drawing.Size(256, 23);
             this.tbNombre.TabIndex = 3;
             this.tbNombre.TextChanged += new System.EventHandler(this.tbNombre_TextChanged);
             this.tbNombre.Leave += new System.EventHandler(this.tbNombre_TextChanged);
@@ -94,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbId.Location = new System.Drawing.Point(148, 84);
             this.tbId.Name = "tbId";
-            this.tbId.Size = new System.Drawing.Size(252, 23);
+            this.tbId.Size = new System.Drawing.Size(256, 23);
             this.tbId.TabIndex = 1;
             this.tbId.TextChanged += new System.EventHandler(this.tbId_TextChanged);
             this.tbId.Leave += new System.EventHandler(this.tbId_TextChanged);
@@ -134,7 +140,7 @@
             this.tbDescripcion.MaxLength = 250;
             this.tbDescripcion.Multiline = true;
             this.tbDescripcion.Name = "tbDescripcion";
-            this.tbDescripcion.Size = new System.Drawing.Size(252, 74);
+            this.tbDescripcion.Size = new System.Drawing.Size(256, 74);
             this.tbDescripcion.TabIndex = 11;
             this.tbDescripcion.TextChanged += new System.EventHandler(this.validateDescription);
             // 
@@ -180,7 +186,7 @@
             // 
             this.bRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bRegistrar.Enabled = false;
-            this.bRegistrar.Location = new System.Drawing.Point(316, 358);
+            this.bRegistrar.Location = new System.Drawing.Point(316, 680);
             this.bRegistrar.Name = "bRegistrar";
             this.bRegistrar.Size = new System.Drawing.Size(75, 23);
             this.bRegistrar.TabIndex = 13;
@@ -191,7 +197,7 @@
             // bCancelar
             // 
             this.bCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancelar.Location = new System.Drawing.Point(397, 358);
+            this.bCancelar.Location = new System.Drawing.Point(397, 680);
             this.bCancelar.Name = "bCancelar";
             this.bCancelar.Size = new System.Drawing.Size(75, 23);
             this.bCancelar.TabIndex = 14;
@@ -264,12 +270,56 @@
             this.ErrEmptyName.ContainerControl = this;
             this.ErrEmptyName.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrEmptyName.Icon")));
             // 
+            // lImagen
+            // 
+            this.lImagen.AutoSize = true;
+            this.lImagen.Location = new System.Drawing.Point(73, 339);
+            this.lImagen.Name = "lImagen";
+            this.lImagen.Size = new System.Drawing.Size(47, 15);
+            this.lImagen.TabIndex = 16;
+            this.lImagen.Text = "Imagen";
+            // 
+            // pbImage
+            // 
+            this.pbImage.Image = global::EjercicioProductos.Properties.Resources.placeholderProduct;
+            this.pbImage.Location = new System.Drawing.Point(148, 379);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(256, 256);
+            this.pbImage.TabIndex = 17;
+            this.pbImage.TabStop = false;
+            // 
+            // dialogImagePicker
+            // 
+            this.dialogImagePicker.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
+            this.dialogImagePicker.Title = "Selecciona la imagen";
+            // 
+            // tbImagePath
+            // 
+            this.tbImagePath.Location = new System.Drawing.Point(148, 336);
+            this.tbImagePath.Name = "tbImagePath";
+            this.tbImagePath.Size = new System.Drawing.Size(222, 23);
+            this.tbImagePath.TabIndex = 18;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(376, 336);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(28, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.SelectImage);
+            // 
             // ProductoRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(484, 393);
+            this.ClientSize = new System.Drawing.Size(484, 715);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tbImagePath);
+            this.Controls.Add(this.pbImage);
+            this.Controls.Add(this.lImagen);
             this.Controls.Add(this.nudPrecio);
             this.Controls.Add(this.nudCantidad);
             this.Controls.Add(this.bCancelar);
@@ -298,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrEmptyName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,5 +376,10 @@
         protected Label lInternalTitle;
         protected Label IId;
         protected ToolTip ttCursorCod;
+        private Label lImagen;
+        private OpenFileDialog dialogImagePicker;
+        private TextBox tbImagePath;
+        protected PictureBox pbImage;
+        protected Button button1;
     }
 }

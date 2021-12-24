@@ -32,6 +32,7 @@ namespace EjercicioProductos.view
             nudPrecio.Value = currentProduct.Precio;
             cbTipo.SelectedIndex = (int)currentProduct.Tipo;
             tbDescripcion.Text = currentProduct.Descripcion;
+            pbImage.Image = currentProduct.Imagen;
             tbId.Enabled = false;
         }
 
@@ -42,6 +43,7 @@ namespace EjercicioProductos.view
             products[currentPos].Tipo = (ETipo)cbTipo.SelectedIndex;
             products[currentPos].Descripcion = tbDescripcion.Text;
             products[currentPos].Precio = nudPrecio.Value;
+            products[currentPos].Imagen = (Bitmap)pbImage.Image;
         }
 
         private void NextProduct(object sender, EventArgs e)
@@ -65,7 +67,21 @@ namespace EjercicioProductos.view
         private void bRegistrar_Click(object sender, EventArgs e)
         {
             UpdateCurrentProductChanges();
-            products.ForEach(product => controller.editaProducto(product));
+            //Guardamos en la carpeta del proyecto todas las imagenes precargadas (que no sean la de por defecto)
+            products.ForEach(product => {
+                if(product.Imagen.Tag != null && !product.Imagen.Tag.Equals("placeHolder")) //
+                {
+                    cachedImage = product.Imagen; //Ponemos la imagen actual como la cacheada actual
+                    File.Delete(tbId.Text); //Si existe ya una imagen de ese
+                    cachedImage.Save(tbId.Text);
+                    using (FileStream fs = new FileStream(tbId.Text, FileMode.Open)) //Cargamos como un flujo para liberar el recurso y poder eliminarlo cuando se edite el Producto posteriormente
+                    {
+                        product.Imagen = (Bitmap)Bitmap.FromStream(fs);
+                        fs.Close();
+                    }
+                }
+                controller.editaProducto(product);
+            });
             controller.ProductosSeleccionados.Clear();
             this.Close();
         }

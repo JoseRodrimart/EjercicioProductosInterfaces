@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,17 +19,14 @@ namespace EjercicioProductos.view
         protected ProductosController controller; 
         private bool idAvailable = false;
         private int iconPadding = 5;
+        protected Bitmap Image = new Bitmap(Properties.Resources.placeholderProduct) { Tag = "placeholder" }; //Por defecto llevan una imagen placeholder, con un tag para identificarlo
+        protected Bitmap cachedImage = null;
 
-        //Si se construye sin parámetros, crea uno nuevo
         public ProductoRegister()
         {
             InitializeComponent();
             controller = ProductosController.GetInstance();
-        }
-        //SI se construye con parámetros permite editar varios
-        public ProductoRegister(List<Producto> productos)
-        {
-            controller = ProductosController.GetInstance();
+            //pbImage.Image = new Bitmap()
         }
 
         private void validateDescription(object sender, EventArgs e)
@@ -41,7 +39,9 @@ namespace EjercicioProductos.view
         {
             try
             {
-                controller.RegistraProducto(new Producto(tbId.Text,tbNombre.Text,(int)nudCantidad.Value,nudPrecio.Value,tbDescripcion.Text,(ETipo)cbTipo.SelectedIndex));
+                StoreCachedImage();
+                Producto storingProduct = new Producto(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (ETipo)cbTipo.SelectedIndex, Image);
+                controller.RegistraProducto(storingProduct);
                 Close();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
@@ -100,6 +100,31 @@ namespace EjercicioProductos.view
                 }
             }
             ValidateRegister();
+        }
+
+        private void SelectImage(object sender, EventArgs e)
+        {
+            if (dialogImagePicker.ShowDialog() == DialogResult.OK)
+            {
+                var imageLocalPath = dialogImagePicker.FileName;
+                tbImagePath.Text = imageLocalPath;
+                cachedImage = new Bitmap(new Bitmap(imageLocalPath), new Size(256,256));
+                pbImage.Image = cachedImage;
+            }
+        }
+
+        protected void StoreCachedImage()
+        {
+            if(cachedImage != null)
+            {
+                File.Delete(tbId.Text); //Si existe ya una imagen de ese
+                cachedImage.Save(tbId.Text);
+                using (FileStream fs = new FileStream(tbId.Text, FileMode.Open)) //Cargamos como un flujo para liberar el recurso y poder eliminarlo cuando se edite el Producto
+                {
+                    Image = (Bitmap)Bitmap.FromStream(fs); 
+                    fs.Close();
+                }
+            }
         }
     }
 }
