@@ -11,7 +11,7 @@ namespace EjercicioProductos.view
     {
         private Button bNext;
         private Button bPrevious;
-        private List<Producto> products;
+        private List<Product> products;
         private int currentPos;
 
         public ProductoModifyMultiple() : base()
@@ -24,26 +24,26 @@ namespace EjercicioProductos.view
 
         private void DrawModifyingProduct()
         {
-            Producto currentProduct = products[currentPos];
+            Product currentProduct = products[currentPos];
             lInternalTitle.Text = "Modifique el producto ("+(currentPos+1)+"/"+products.Count+")";
-            tbNombre.Text = currentProduct.Nombre;
+            tbNombre.Text = currentProduct.Name;
             tbId.Text = currentProduct.Id;
-            nudCantidad.Value = currentProduct.Cantidad;
-            nudPrecio.Value = currentProduct.Precio;
-            cbTipo.SelectedIndex = (int)currentProduct.Tipo;
-            tbDescripcion.Text = currentProduct.Descripcion;
-            pbImage.Image = currentProduct.Imagen;
+            nudCantidad.Value = currentProduct.Quantity;
+            nudPrecio.Value = currentProduct.Price;
+            cbTipo.SelectedIndex = (int)currentProduct.Type;
+            tbDescripcion.Text = currentProduct.Description;
+            pbImage.Image = currentProduct.Image;
             tbId.Enabled = false;
         }
 
         private void UpdateCurrentProductChanges()
         {
-            products[currentPos].Nombre = tbNombre.Text;
-            products[currentPos].Cantidad = (int)nudCantidad.Value;
-            products[currentPos].Tipo = (ETipo)cbTipo.SelectedIndex;
-            products[currentPos].Descripcion = tbDescripcion.Text;
-            products[currentPos].Precio = nudPrecio.Value;
-            products[currentPos].Imagen = (Bitmap)pbImage.Image;
+            products[currentPos].Name = tbNombre.Text;
+            products[currentPos].Quantity = (int)nudCantidad.Value;
+            products[currentPos].Type = (EComputerPartType)cbTipo.SelectedIndex;
+            products[currentPos].Description = tbDescripcion.Text;
+            products[currentPos].Price = nudPrecio.Value;
+            products[currentPos].Image = (Bitmap)pbImage.Image;
         }
 
         private void NextProduct(object sender, EventArgs e)
@@ -69,20 +69,20 @@ namespace EjercicioProductos.view
             UpdateCurrentProductChanges();
             //Guardamos en la carpeta del proyecto todas las imagenes precargadas (que no sean la de por defecto)
             products.ForEach(product => {
-                if(product.Imagen.Tag != null && !product.Imagen.Tag.Equals("placeHolder")) //
+                if(product.Image.Tag != null && !product.Image.Tag.Equals("placeHolder")) //
                 {
-                    cachedImage = product.Imagen; //Ponemos la imagen actual como la cacheada actual
+                    cachedImage = product.Image; //Ponemos la imagen actual como la cacheada actual
                     File.Delete(tbId.Text); //Si existe ya una imagen de ese
                     cachedImage.Save(tbId.Text);
                     using (FileStream fs = new FileStream(tbId.Text, FileMode.Open)) //Cargamos como un flujo para liberar el recurso y poder eliminarlo cuando se edite el Producto posteriormente
                     {
-                        product.Imagen = (Bitmap)Bitmap.FromStream(fs);
+                        product.Image = (Bitmap)Bitmap.FromStream(fs);
                         fs.Close();
                     }
                 }
-                controller.editaProducto(product);
+                controller.ModifyProduct(product);
             });
-            controller.ProductosSeleccionados.Clear();
+            controller.SelectedProducts.Clear();
             this.Close();
         }
     }

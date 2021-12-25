@@ -16,7 +16,7 @@ namespace EjercicioProductos.view
 {
     public partial class ProductoRegister : Form
     {
-        protected ProductosController controller; 
+        protected ProductController controller; 
         private bool idAvailable = false;
         private int iconPadding = 5;
         protected Bitmap Image = new Bitmap(Properties.Resources.placeholderProduct) { Tag = "placeholder" }; //Por defecto llevan una imagen placeholder, con un tag para identificarlo
@@ -25,7 +25,7 @@ namespace EjercicioProductos.view
         public ProductoRegister()
         {
             InitializeComponent();
-            controller = ProductosController.GetInstance();
+            controller = ProductController.GetInstance();
             //pbImage.Image = new Bitmap()
         }
 
@@ -40,8 +40,8 @@ namespace EjercicioProductos.view
             try
             {
                 StoreCachedImage();
-                Producto storingProduct = new Producto(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (ETipo)cbTipo.SelectedIndex, Image);
-                controller.RegistraProducto(storingProduct);
+                Product storingProduct = new Product(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (EComputerPartType)cbTipo.SelectedIndex, Image);
+                controller.RegisterNewProduct(storingProduct);
                 Close();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
@@ -87,7 +87,7 @@ namespace EjercicioProductos.view
             else
             {
                 errEmptyId.Clear();
-                if (controller.CompruebaId(tbId.Text))
+                if (controller.CheckProductById(tbId.Text))
                 {
                     errNotAvailableId.SetError(tbId, "El código ya está en uso");
                     errNotAvailableId.SetIconPadding((TextBox)sender, iconPadding);

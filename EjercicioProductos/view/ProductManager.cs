@@ -15,14 +15,15 @@ namespace EjercicioProductos.view
 {
     public partial class ProductManager : Form
     {
-        private ProductosController controller = ProductosController.GetInstance();
+        private ProductController controller = ProductController.GetInstance();
         List<int> selectedRows = new List<int>();
 
         public ProductManager()
         {
             InitializeComponent();
-            dgProductos.DataSource = null;
-            dgProductos.DataSource = controller.ListaProductos;
+            dgProductsGrid.DataSource = null;
+            dgProductsGrid.DataSource = controller.ProductList;
+            dgProductsGrid.Columns["Precio"].DefaultCellStyle.Format = "c"; //Establece el formato de la columna de Precio en "c" (currency)
         }
 
         //En la carga vamos a "bindear" o enlazar el origen de datos del DataGrid a una propiedad de tipo BindingList de nuestro controlador,
@@ -37,17 +38,17 @@ namespace EjercicioProductos.view
         //Gestiona las pulsaciones en celdas del datagrid
         private void HandleDataGridCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgProductos.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
-            DataGridViewRow row = dgProductos.Rows[e.RowIndex];
-            DataGridViewTextBoxCell cell = row.Cells["Cod"] as DataGridViewTextBoxCell;
+            dgProductsGrid.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
+            DataGridViewRow row = dgProductsGrid.Rows[e.RowIndex];
+            DataGridViewTextBoxCell cell = row.Cells["Id"] as DataGridViewTextBoxCell;
             String cod = cell.Value as String;
-            switch (dgProductos.CurrentCell.OwningColumn.Name)
+            switch (dgProductsGrid.CurrentCell.OwningColumn.Name)
             {
                 case "seleccionado":
                     if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
-                        controller.ProductosSeleccionados.Add(cod);
+                        controller.SelectedProducts.Add(cod);
                     else
-                        controller.ProductosSeleccionados.Remove(cod);
+                        controller.SelectedProducts.Remove(cod);
                     break;
 
                 case "iconoEditar":
@@ -72,7 +73,7 @@ namespace EjercicioProductos.view
         //Cuando se pulsa el botón de eliminar seleccionados, se borran las filas con el checkbox clicado
         private void DeleteSelectedItems(object sender, EventArgs e)
         {
-            int rowsToDelete = controller.ProductosSeleccionados.Count;
+            int rowsToDelete = controller.SelectedProducts.Count;
             if (rowsToDelete > 0)
             {
                 var decision = MessageBox.Show("Desea eliminar " + rowsToDelete + " productos de la lista?", "Confirm Delete!!", MessageBoxButtons.YesNo);
@@ -84,12 +85,12 @@ namespace EjercicioProductos.view
 
         private void EditSelectedProducts(object sender, EventArgs e)
         {
-            int rowsToDelete = controller.ProductosSeleccionados.Count;
+            int rowsToDelete = controller.SelectedProducts.Count;
             if (rowsToDelete > 0)
             {
                 if (rowsToDelete == 1)
                 {
-                    ProductoModify pm = new ProductoModify(controller.ProductosSeleccionados[0]);
+                    ProductoModify pm = new ProductoModify(controller.SelectedProducts[0]);
                     pm.ShowDialog();
                 }
                 else
@@ -118,40 +119,44 @@ namespace EjercicioProductos.view
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProduct(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("a", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            controller.ProductList.Add(new Product("a", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductB(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("b", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            controller.ProductList.Add(new Product("b", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }//Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductC(object sender, EventArgs e)
         {
-            controller.ListaProductos.Add(new Producto("c", "a", 1, 1, "a", ETipo.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            controller.ProductList.Add(new Product("c", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
         }
 
 
-
-
+        //Dialogo de Importar CSV
         private void OpenImportDialog(object sender, EventArgs e)
         {
             if (dImport.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    List<Producto> productosImportados = controller.ImportCsv(dImport.OpenFile());
-                    int repeticiones = controller.CuentaRepeticiones(productosImportados);
+                    List<Product> importingProducts = controller.ImportCsv(dImport.OpenFile());
+                    int repeticiones = controller.CountAlreadyPresentProducts(importingProducts);
                     if (repeticiones > 0)
                     {
-                        if (MessageBox.Show("Se van a sobreescribir " + repeticiones + " productos existentes. ¿Desea continuar con la importación?",
+                        var response = MessageBox.Show("Hay " + repeticiones + " productos coincidentes. ¿Desea sobreescribir los productos actuales?",
                                 "Productos ya existentes",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Warning) == DialogResult.Yes)
+                                MessageBoxButtons.YesNoCancel,
+                                MessageBoxIcon.Warning);
+                        if (response == DialogResult.Yes)
                         {
-                            controller.RegistraOSobreescribe(productosImportados);
+                            controller.InsertProducts(importingProducts);
+                        }
+                        else if(response == DialogResult.No)
+                        {
+                            controller.InsertProducts(importingProducts, false); //el método de insertar productos acepta un parámetro bool para indicar si se deben de sobreescribir las coincidencias
                         }
                     }
-                    else controller.RegistraOSobreescribe(productosImportados);
+                    else controller.InsertProducts(importingProducts);
                 }
                 catch (Exception ex)
                 {
@@ -165,7 +170,7 @@ namespace EjercicioProductos.view
 
         private void OpenExportDialog(object sender, EventArgs e)
         {
-            if (controller.ListaProductos.Count > 0)
+            if (controller.ProductList.Count > 0)
             {
                 if (dExport.ShowDialog() == DialogResult.OK)
                 {
@@ -187,6 +192,28 @@ namespace EjercicioProductos.view
                                 "Lista de productos vacía",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
+        }
+
+        private void RemoveFilters(object sender, EventArgs e)
+        {
+            tbNameFilter.Text = String.Empty;
+            tbCodeFilter.Text = String.Empty;
+            controller.Filter["Codigo"] = String.Empty;
+            controller.Filter["Nombre"] = String.Empty;
+            controller.FilterList();
+        }
+
+        private void FilterModified(object sender, KeyEventArgs e)
+        {
+            controller.Filter["Codigo"] = tbCodeFilter.Text;
+            controller.Filter["Nombre"] = tbNameFilter.Text;
+            controller.FilterList();
+        }
+
+        private void OpenAboutForm(object sender, EventArgs e)
+        {
+            AboutForm af = new AboutForm();
+            af.ShowDialog();
         }
     }
 }

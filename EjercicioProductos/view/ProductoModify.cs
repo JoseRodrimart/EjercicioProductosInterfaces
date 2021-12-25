@@ -10,7 +10,7 @@ namespace EjercicioProductos.view
 {
     public partial class ProductoModify : ProductoRegister
     {
-        private Producto product;
+        private Product product;
 
         //Para gestionar la edición múltiple, colocamos un indicador de cuantos productos de la lista actual se han modificado (x/n)
         /*protected ProductoModify() : base()
@@ -23,14 +23,14 @@ namespace EjercicioProductos.view
 
         public ProductoModify(String codProducto) : base()
         {
-            product = controller.BuscaProducto(codProducto);
+            product = controller.SearchProduct(codProducto);
             bRegistrar.Text = "Modificar";
-            tbNombre.Text = product.Nombre;
+            tbNombre.Text = product.Name;
             tbId.Text = product.Id;
-            nudCantidad.Value = product.Cantidad;
-            cbTipo.SelectedIndex = (int)product.Tipo;
-            tbDescripcion.Text = product.Descripcion;
-            pbImage.Image = product.Imagen;
+            nudCantidad.Value = product.Quantity;
+            cbTipo.SelectedIndex = (int)product.Type;
+            tbDescripcion.Text = product.Description;
+            pbImage.Image = product.Image;
             tbId.Enabled = false;
         }
 
@@ -48,10 +48,10 @@ namespace EjercicioProductos.view
         protected override void bAccept_Click(object sender, EventArgs e)
         {
             StoreCachedImage();
-            Producto newProduct = new Producto(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (ETipo)cbTipo.SelectedIndex, Image);
+            Product newProduct = new Product(tbId.Text, tbNombre.Text, (int)nudCantidad.Value, nudPrecio.Value, tbDescripcion.Text, (EComputerPartType)cbTipo.SelectedIndex, Image);
             try
             {
-                controller.editaProducto(newProduct);
+                controller.ModifyProduct(newProduct);
                 Close();
             }
             catch (Exception ex) { Debug.Write(ex.Message); }
