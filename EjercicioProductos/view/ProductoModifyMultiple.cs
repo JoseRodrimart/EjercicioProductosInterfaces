@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EjercicioProductos.view
 {
-    public partial class ProductoModifyMultiple : ProductoModify
+    public partial class ProductoModifyMultiple : ProductModify
     {
         private Button bNext;
         private Button bPrevious;
@@ -26,23 +26,23 @@ namespace EjercicioProductos.view
         {
             Product currentProduct = products[currentPos];
             lInternalTitle.Text = "Modifique el producto ("+(currentPos+1)+"/"+products.Count+")";
-            tbNombre.Text = currentProduct.Name;
+            tbName.Text = currentProduct.Name;
             tbId.Text = currentProduct.Id;
-            nudCantidad.Value = currentProduct.Quantity;
-            nudPrecio.Value = currentProduct.Price;
-            cbTipo.SelectedIndex = (int)currentProduct.Type;
-            tbDescripcion.Text = currentProduct.Description;
+            nudQuantity.Value = currentProduct.Quantity;
+            nudPrice.Value = currentProduct.Price;
+            cbType.SelectedIndex = (int)currentProduct.Type;
+            tbDescription.Text = currentProduct.Description;
             pbImage.Image = currentProduct.Image;
             tbId.Enabled = false;
         }
 
         private void UpdateCurrentProductChanges()
         {
-            products[currentPos].Name = tbNombre.Text;
-            products[currentPos].Quantity = (int)nudCantidad.Value;
-            products[currentPos].Type = (EComputerPartType)cbTipo.SelectedIndex;
-            products[currentPos].Description = tbDescripcion.Text;
-            products[currentPos].Price = nudPrecio.Value;
+            products[currentPos].Name = tbName.Text;
+            products[currentPos].Quantity = (int)nudQuantity.Value;
+            products[currentPos].Type = (EComputerPartType)cbType.SelectedIndex;
+            products[currentPos].Description = tbDescription.Text;
+            products[currentPos].Price = nudPrice.Value;
             products[currentPos].Image = (Bitmap)pbImage.Image;
         }
 

@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace EjercicioProductos.view
 {
-    partial class ProductoModify
+    partial class ProductModify
     {
         private void InitializeComponent()
         {
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // bRegistrar
             // 
-            this.bRegistrar.Location = new System.Drawing.Point(266, 680);
-            this.bRegistrar.Size = new System.Drawing.Size(125, 23);
-            this.bRegistrar.Text = "Guardar Cambios";
-            this.bRegistrar.Click += new System.EventHandler(this.bAccept_Click);
+            this.bRegister.Location = new System.Drawing.Point(266, 680);
+            this.bRegister.Size = new System.Drawing.Size(125, 23);
+            this.bRegister.Text = "Guardar Cambios";
+            this.bRegister.Click += new System.EventHandler(this.RegisterProduct);
             // 
             // lInternalTitle
             // 
@@ -42,8 +42,8 @@ namespace EjercicioProductos.view
             this.ClientSize = new System.Drawing.Size(484, 715);
             this.Name = "ProductoModify";
             this.Text = "Modificación de producto";
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);

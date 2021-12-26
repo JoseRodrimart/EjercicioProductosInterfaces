@@ -52,11 +52,13 @@ namespace EjercicioProductos.view
                     break;
 
                 case "iconoEditar":
-                    ProductoModify pr = new ProductoModify(cod);
+                    RemoveFilters();
+                    ProductModify pr = new ProductModify(cod);
                     pr.ShowDialog();
                     break;
 
                 case "iconoEliminar":
+                    RemoveFilters();
                     controller.EliminaProducto(cod);
                     break;
                 default: break;
@@ -66,7 +68,7 @@ namespace EjercicioProductos.view
         //Apertura del formulario de registro de producto
         private void RegisterProduct(object sender, EventArgs e)
         {
-            ProductoRegister registerForm = new ProductoRegister();
+            ProductRegister registerForm = new ProductRegister();
             registerForm.ShowDialog();
         }
 
@@ -88,9 +90,10 @@ namespace EjercicioProductos.view
             int rowsToDelete = controller.SelectedProducts.Count;
             if (rowsToDelete > 0)
             {
+                RemoveFilters();
                 if (rowsToDelete == 1)
                 {
-                    ProductoModify pm = new ProductoModify(controller.SelectedProducts[0]);
+                    ProductModify pm = new ProductModify(controller.SelectedProducts[0]);
                     pm.ShowDialog();
                 }
                 else
@@ -196,24 +199,41 @@ namespace EjercicioProductos.view
 
         private void RemoveFilters(object sender, EventArgs e)
         {
-            tbNameFilter.Text = String.Empty;
-            tbCodeFilter.Text = String.Empty;
-            controller.Filter["Codigo"] = String.Empty;
-            controller.Filter["Nombre"] = String.Empty;
-            controller.FilterList();
+            RemoveFilters();
+        }
+
+        private void RemoveFilters()
+        {
+            //Limpiamos todos los campos de filtro
+            tbNameFilter.Text = tbCodeFilter.Text = tbQuantityFilter.Text = tbPriceFIlter.Text = cbTypeFilter.Text = String.Empty;
+            //Limpiamos los filtros del controlador
+            controller.Filter.Values.ToList().ForEach(value => value = String.Empty);
+            controller.ApplyFilters();
         }
 
         private void FilterModified(object sender, KeyEventArgs e)
         {
-            controller.Filter["Codigo"] = tbCodeFilter.Text;
-            controller.Filter["Nombre"] = tbNameFilter.Text;
-            controller.FilterList();
+            ToolStripTextBox writedElement = (ToolStripTextBox)sender;
+
+            controller.Filter[(String)writedElement.Tag] = writedElement.Text;
+
+            /*controller.Filter["Id"] = tbCodeFilter.Text;
+            controller.Filter["Name"] = tbNameFilter.Text;
+            controller.Filter["Quantity"] = tbQuantityFilter.Text;
+            controller.Filter["Price"] = tbPriceFIlter.Text;*/
+            controller.ApplyFilters();
         }
 
         private void OpenAboutForm(object sender, EventArgs e)
         {
             AboutForm af = new AboutForm();
             af.ShowDialog();
+        }
+
+        private void TypeFilterModified(object sender, EventArgs e)
+        {
+            controller.Filter["Type"] = cbTypeFilter.Text;
+            controller.ApplyFilters();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace EjercicioProductos.controller
         //List que contiene los códigos de los productos seleccionados actualmente
         public List<String> SelectedProducts { get; private set; } = new List<string>();
         private List<Product> excludedProducts = new List<Product>();
-        public Dictionary<string, string> Filter { get; private set; } = new Dictionary<string, string>() { { "Nombre", "" },{ "Codigo", "" } };
+        public Dictionary<string, string> Filter { get; private set; } = new Dictionary<string, string>() { { "Id", "" },{ "Name", "" },{ "Price", "" },{ "Quantity", "" },{"Type", "" }};
 
         //CRUD de productos
 
@@ -191,18 +191,38 @@ namespace EjercicioProductos.controller
         }
 
         //Filtra la lista de productos en base a los 
-        internal void FilterList()
+        internal void ApplyFilters()
         {
-            excludedProducts.ForEach(e => ProductList.Add(e));
+            excludedProducts.ForEach(e => ProductList.Add(e)); //Antes de filtrar, devolvemos los excluidos a la lista
             excludedProducts.Clear();
             ProductList.OrderByDescending(e => e.Name);
             ProductList.ResetBindings();
             ProductList.ToList().ForEach( producto =>
             {
-                if (!Filter["Nombre"].Equals(String.Empty) && !producto.Name.Contains(Filter["Nombre"]))
+                if (!Filter["Id"].Equals(String.Empty) && !producto.Id.StartsWith(Filter["Id"]))
                     excludedProducts.Add(producto); //ListaProductos.IndexOf(producto); //Reservar el indice para reinsertar
-                else if (!Filter["Codigo"].Equals(String.Empty) && !producto.Id.Contains(Filter["Codigo"]))
+                
+                else if (!Filter["Name"].Equals(String.Empty) && !producto.Name.StartsWith(Filter["Name"]))
                     excludedProducts.Add(producto);
+                
+                else if (!Filter["Quantity"].Equals(String.Empty))
+                {
+                    int quantity;
+                    int.TryParse(Filter["Quantity"], out quantity);
+                    if(quantity != null && producto.Quantity != quantity)
+                        excludedProducts.Add(producto);
+                }
+                
+                else if (!Filter["Price"].Equals(String.Empty))
+                {
+                    decimal price;
+                    decimal.TryParse(Filter["Price"], out price);
+                    if (price != null && producto.Price != price)
+                        excludedProducts.Add(producto);
+                }
+                else if(!Filter["Type"].Equals(String.Empty) && !producto.Type.ToString().Equals(Filter["Type"]))
+                    excludedProducts.Add(producto);
+
             });
             excludedProducts.ForEach(producto => ProductList.Remove(producto));
             ProductList.ResetBindings();

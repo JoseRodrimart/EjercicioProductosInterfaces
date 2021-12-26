@@ -12,18 +12,18 @@ namespace EjercicioProductos.view
         {
             this.bNext = new System.Windows.Forms.Button();
             this.bPrevious = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // bRegistrar
             // 
-            this.bRegistrar.Location = new System.Drawing.Point(260, 680);
-            this.bRegistrar.Size = new System.Drawing.Size(125, 23);
-            this.bRegistrar.Text = "Guardar cambios";
-            this.bRegistrar.Click += new System.EventHandler(this.bRegistrar_Click);
+            this.bRegister.Location = new System.Drawing.Point(260, 680);
+            this.bRegister.Size = new System.Drawing.Size(125, 23);
+            this.bRegister.Text = "Guardar cambios";
+            this.bRegister.Click += new System.EventHandler(this.bRegistrar_Click);
             // 
             // lInternalTitle
             // 
@@ -64,20 +64,20 @@ namespace EjercicioProductos.view
             this.Name = "ProductoModifyMultiple";
             this.Text = "Modificación productos";
             this.Controls.SetChildIndex(this.pbImage, 0);
-            this.Controls.SetChildIndex(this.button1, 0);
+            this.Controls.SetChildIndex(this.bSelectImage, 0);
             this.Controls.SetChildIndex(this.IId, 0);
-            this.Controls.SetChildIndex(this.tbNombre, 0);
+            this.Controls.SetChildIndex(this.tbName, 0);
             this.Controls.SetChildIndex(this.tbId, 0);
-            this.Controls.SetChildIndex(this.tbDescripcion, 0);
-            this.Controls.SetChildIndex(this.cbTipo, 0);
+            this.Controls.SetChildIndex(this.tbDescription, 0);
+            this.Controls.SetChildIndex(this.cbType, 0);
             this.Controls.SetChildIndex(this.lInternalTitle, 0);
-            this.Controls.SetChildIndex(this.bRegistrar, 0);
-            this.Controls.SetChildIndex(this.nudCantidad, 0);
-            this.Controls.SetChildIndex(this.nudPrecio, 0);
+            this.Controls.SetChildIndex(this.bRegister, 0);
+            this.Controls.SetChildIndex(this.nudQuantity, 0);
+            this.Controls.SetChildIndex(this.nudPrice, 0);
             this.Controls.SetChildIndex(this.bNext, 0);
             this.Controls.SetChildIndex(this.bPrevious, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);

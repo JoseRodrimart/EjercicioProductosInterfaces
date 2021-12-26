@@ -81,6 +81,6 @@ namespace EjercicioProductos.model
     }
 
     //Enumerador con los posibles tipos de producto
-    public enum EComputerPartType { CPU, MotherBoard, RAM, GPU, PSU, StorageUnit }
+    public enum EComputerPartType { CPU, MotherBoard, RAM, GPU, PSU, HDD }
 
 }
