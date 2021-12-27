@@ -4,7 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,20 +24,31 @@ namespace EjercicioProductos.controller
             return controller;
         }
         private ProductController() {
-            ProductList = new BindingList<Product>();
-            ProductList.AllowEdit = true;
-            ProductList.AllowRemove = true;
+            Source.DataSource = showingProducts; //El DataSource hace de Wrapper del ProductList
+            ProductList.ListChanged += ProductList_ListChanged;
         }
+
+        private void ProductList_ListChanged(object? sender, ListChangedEventArgs e)
+        {
+            Debug.WriteLine("asdf");
+        }
+
         //FIN SINGLETON
 
-        //List que contiene los productos de nuestro programa
-        public BindingList<Product> ProductList { get; set; }
+        //BindingList que contiene todos los productos de nuestro programa
+        public BindingList<Product> ProductList { get; set; } = new BindingList<Product>();
+        private BindingList<Product> showingProducts = new BindingList<Product>();
 
+        //BindingSource, hace de "Wrapper" de la lista de productos y nos permite filtrar y ordenar de manera eficiente
+        public BindingSource Source { get; set; } = new BindingSource( );
 
         //List que contiene los códigos de los productos seleccionados actualmente
         public List<String> SelectedProducts { get; private set; } = new List<string>();
-        private List<Product> excludedProducts = new List<Product>();
+        
+        //Diccionario con los filtros establecidos para cada propiedad
         public Dictionary<string, string> Filter { get; private set; } = new Dictionary<string, string>() { { "Id", "" },{ "Name", "" },{ "Price", "" },{ "Quantity", "" },{"Type", "" }};
+        private String orderField = "Id";
+        private bool orderDirection = true; //true ascendente, false descendente
 
         //CRUD de productos
 
@@ -44,50 +58,44 @@ namespace EjercicioProductos.controller
         {
             if (ProductList.Contains(product)) throw new IdRepetidoException();
             ProductList.Add(product);
-            
+            UpdateShowingProducts();
         }
 
         //READ
         public Product SearchProduct(String productId)
         {
             Product product = new Product(productId);
-            if (CheckProduct(product))
-            {
-                return ProductList.FirstOrDefault(x => x.Equals(product));//(Producto)productos[id];
-            }
-            else
-                throw new ProductoNoAlmacenadoException();
+            if (!CheckProduct(product)) throw new ProductoNoAlmacenadoException();
+            return ProductList.FirstOrDefault(x => x.Equals(product));//(Producto)productos[id];
         }
 
         //UPDATE
         //Edita un producto, y permite cambiar la id si la nueva es diferente a la anterior, lanza una excepción si la id seleccionada no está disponible
         public void ModifyProduct(Product editedProduct)
         {
-            if (CheckProduct(editedProduct)) //Primero comprobamos que si esté el producto que buscamos
-            {
-                int index = ProductList.IndexOf(editedProduct);
-                ProductList[index].Name = editedProduct.Name;
-                ProductList[index].Price = editedProduct.Price;
-                ProductList[index].Quantity = editedProduct.Quantity;
-                ProductList[index].Description = editedProduct.Description;
-                ProductList[index].Type = editedProduct.Type;
-                ProductList[index].Image = editedProduct.Image;
-                ProductList.ResetBindings(); //Notifica a la vista de los cambios realizados
-            }
-            else
+            //Primero comprobamos que si esté el producto que buscamos
+            if (!CheckProduct(editedProduct)) 
                 throw new ProductoNoAlmacenadoException();
+
+            int index = ProductList.IndexOf(editedProduct);
+            ProductList[index].Name = editedProduct.Name;
+            ProductList[index].Price = editedProduct.Price;
+            ProductList[index].Quantity = editedProduct.Quantity;
+            ProductList[index].Description = editedProduct.Description;
+            ProductList[index].Type = editedProduct.Type;
+            ProductList[index].Image = editedProduct.Image;
+
+            UpdateShowingProducts();
         }
 
         //DELETE
         public void EliminaProducto(String cod)
         {
             Product producto = new Product(cod);
-            if (CheckProduct(producto))
-            {
-                ProductList.Remove(producto);
-                this.SelectedProducts.Remove(cod);
-            }
-            else throw new ProductoNoAlmacenadoException();
+            if (CheckProduct(producto)) throw new ProductoNoAlmacenadoException();
+            ProductList.Remove(producto);
+            this.SelectedProducts.Remove(cod);
+            UpdateShowingProducts();
         }
 
         internal void RemoveSelectedProducts()
@@ -187,30 +195,91 @@ namespace EjercicioProductos.controller
                     RegisterNewProduct(product);
                 else if(shouldOverride) //En caso de que la haya, si se indica shouldOverride, se cambia el ya existente
                     ModifyProduct(product);
+                UpdateShowingProducts();
             });
         }
 
         //Filtra la lista de productos en base a los 
-        internal void ApplyFilters()
+        internal void UpdateShowingProducts()
         {
-            excludedProducts.ForEach(e => ProductList.Add(e)); //Antes de filtrar, devolvemos los excluidos a la lista
-            excludedProducts.Clear();
-            ProductList.OrderByDescending(e => e.Name);
-            ProductList.ResetBindings();
-            ProductList.ToList().ForEach( producto =>
+            SelectedProducts.Clear();
+            showingProducts.Clear();
+
+            var x = ProductList.Where(p =>
+            {
+                bool ret = true;
+                if (!Filter["Id"].Equals(String.Empty))
+                    ret = (p.Id.Contains(Filter["Id"]));
+                if (!Filter["Name"].Equals(String.Empty))
+                    ret = (p.Name.Contains(Filter["Name"]));
+                if (!Filter["Quantity"].Equals(String.Empty))
+                {
+                    int quantity;
+                    int.TryParse(Filter["Quantity"], out quantity);
+                    ret = (quantity != null && p.Quantity == quantity);
+                }
+                if (!Filter["Price"].Equals(String.Empty))
+                {
+                    decimal price;
+                    decimal.TryParse(Filter["Price"], out price);
+                    ret = (price != null && p.Price == price);
+                }
+                if (!Filter["Type"].Equals(String.Empty))
+                    ret = (p.Type.ToString() == Filter["Type"]);
+                return ret;
+            }).ToList();
+
+            if (orderDirection)
+            {
+                switch (orderField)
+                {
+                    case "Id": x=x.OrderBy(p =>p.Id).ToList(); break;
+                    case "Name": x = x.OrderBy(p => p.Name).ToList(); break;
+                    case "Quantity": x=x.OrderBy(p =>p.Quantity).ToList() ;break;
+                    case "Price": x=x.OrderBy(p =>p.Price).ToList() ;break;
+                    case "Description": x=x.OrderBy(p =>p.Description).ToList() ;break;
+                    case "Type": x=x.OrderBy(p =>p.Type.ToString()).ToList() ;break;
+                }
+            }
+            else
+            {
+                switch (orderField)
+                {
+                    case "Id": x = x.OrderByDescending(p => p.Id).ToList(); break;
+                    case "Name": x = x.OrderByDescending(p => p.Name).ToList(); break;
+                    case "Quantity": x = x.OrderByDescending(p => p.Quantity).ToList(); break;
+                    case "Price": x = x.OrderByDescending(p => p.Price).ToList(); break;
+                    case "Description": x = x.OrderByDescending(p => p.Description).ToList(); break;
+                    case "Type": x = x.OrderByDescending(p => p.Type.ToString()).ToList(); break;
+                }
+            }
+
+            x.ForEach(p=>showingProducts.Add(p));
+            //showingProducts.OrderBy(p=>p.Id);
+
+            /*
+            var x = (from product
+                 in ProductList
+                 where product.Id == Filter["id"]
+                 select product
+                 ).ToList();*/
+
+            //x.ForEach(producto => showingProducts.Add(producto));
+
+            /*ProductList.ToList().ForEach( producto =>
             {
                 if (!Filter["Id"].Equals(String.Empty) && !producto.Id.StartsWith(Filter["Id"]))
-                    excludedProducts.Add(producto); //ListaProductos.IndexOf(producto); //Reservar el indice para reinsertar
+                    showingProducts.Add(producto); //ListaProductos.IndexOf(producto); //Reservar el indice para reinsertar
                 
                 else if (!Filter["Name"].Equals(String.Empty) && !producto.Name.StartsWith(Filter["Name"]))
-                    excludedProducts.Add(producto);
+                    showingProducts.Add(producto);
                 
                 else if (!Filter["Quantity"].Equals(String.Empty))
                 {
                     int quantity;
                     int.TryParse(Filter["Quantity"], out quantity);
                     if(quantity != null && producto.Quantity != quantity)
-                        excludedProducts.Add(producto);
+                        showingProducts.Add(producto);
                 }
                 
                 else if (!Filter["Price"].Equals(String.Empty))
@@ -218,14 +287,19 @@ namespace EjercicioProductos.controller
                     decimal price;
                     decimal.TryParse(Filter["Price"], out price);
                     if (price != null && producto.Price != price)
-                        excludedProducts.Add(producto);
+                        showingProducts.Add(producto);
                 }
                 else if(!Filter["Type"].Equals(String.Empty) && !producto.Type.ToString().Equals(Filter["Type"]))
-                    excludedProducts.Add(producto);
+                    showingProducts.Add(producto);
 
-            });
-            excludedProducts.ForEach(producto => ProductList.Remove(producto));
-            ProductList.ResetBindings();
+            });*/
+        }
+
+        internal void SetOrderingRules(string field, bool direction)
+        {
+            orderField = field;
+            orderDirection = direction;
+            UpdateShowingProducts();
         }
     }
 }

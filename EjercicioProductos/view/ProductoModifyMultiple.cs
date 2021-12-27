@@ -11,13 +11,15 @@ namespace EjercicioProductos.view
     {
         private Button bNext;
         private Button bPrevious;
-        private List<Product> products;
+        private readonly List<Product> products = new();
+        //private readonly List<Product> oldProducts = new(); 
         private int currentPos;
 
         public ProductoModifyMultiple() : base()
         {
             InitializeComponent();
-            products = controller.GetSelectedProducts();
+            controller.GetSelectedProducts().ForEach(p=>products.Add(p));
+            //oldProducts = products;
             currentPos = 0;
             DrawModifyingProduct();
         }

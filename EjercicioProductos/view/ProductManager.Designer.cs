@@ -62,6 +62,9 @@
             this.tsbRemoveProducts = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+            this.tscbOrderDirection = new System.Windows.Forms.ToolStripComboBox();
+            this.tscbOrderField = new System.Windows.Forms.ToolStripComboBox();
+            this.tslOrdenar = new System.Windows.Forms.ToolStripLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -324,7 +327,10 @@
             this.tsbEditProducts,
             this.tsbRemoveProducts,
             this.toolStripSeparator7,
-            this.tsbAbout});
+            this.tsbAbout,
+            this.tscbOrderDirection,
+            this.tscbOrderField,
+            this.tslOrdenar});
             this.topStrip.Location = new System.Drawing.Point(0, 24);
             this.topStrip.Name = "topStrip";
             this.topStrip.Padding = new System.Windows.Forms.Padding(10, 0, 1, 0);
@@ -402,6 +408,41 @@
             this.tsbAbout.Size = new System.Drawing.Size(23, 22);
             this.tsbAbout.Text = "Información";
             this.tsbAbout.Click += new System.EventHandler(this.OpenAboutForm);
+            // 
+            // tscbOrderDirection
+            // 
+            this.tscbOrderDirection.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscbOrderDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbOrderDirection.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.tscbOrderDirection.Items.AddRange(new object[] {
+            "Ascendente",
+            "Descendente"});
+            this.tscbOrderDirection.Name = "tscbOrderDirection";
+            this.tscbOrderDirection.Size = new System.Drawing.Size(121, 25);
+            this.tscbOrderDirection.SelectedIndexChanged += new System.EventHandler(this.SetOrderingRules);
+            // 
+            // tscbOrderField
+            // 
+            this.tscbOrderField.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscbOrderField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbOrderField.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.tscbOrderField.Items.AddRange(new object[] {
+            "Id",
+            "Nombre",
+            "Cantidad",
+            "Precio",
+            "Descripción",
+            "Tipo"});
+            this.tscbOrderField.Name = "tscbOrderField";
+            this.tscbOrderField.Size = new System.Drawing.Size(121, 25);
+            this.tscbOrderField.SelectedIndexChanged += new System.EventHandler(this.SetOrderingRules);
+            // 
+            // tslOrdenar
+            // 
+            this.tslOrdenar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslOrdenar.Name = "tslOrdenar";
+            this.tslOrdenar.Size = new System.Drawing.Size(74, 22);
+            this.tslOrdenar.Text = "Ordenar por:";
             // 
             // button1
             // 
@@ -572,7 +613,7 @@
             this.cbTypeFilter.Items.AddRange(new object[] {
             "",
             "CPU",
-            "Motherboard",
+            "MotherBoard",
             "RAM",
             "GPU",
             "PSU",
@@ -683,5 +724,8 @@
         private DataGridViewImageColumn iconoEditar;
         private DataGridViewImageColumn iconoEliminar;
         private ToolStripComboBox cbTypeFilter;
+        private ToolStripComboBox tscbOrderDirection;
+        private ToolStripComboBox tscbOrderField;
+        private ToolStripLabel tslOrdenar;
     }
 }

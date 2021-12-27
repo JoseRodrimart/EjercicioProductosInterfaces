@@ -22,8 +22,11 @@ namespace EjercicioProductos.view
         {
             InitializeComponent();
             dgProductsGrid.DataSource = null;
-            dgProductsGrid.DataSource = controller.ProductList;
+            dgProductsGrid.DataSource = controller.Source;
+            var a = dgProductsGrid.DataSource;
             dgProductsGrid.Columns["Precio"].DefaultCellStyle.Format = "c"; //Establece el formato de la columna de Precio en "c" (currency)
+            tscbOrderField.SelectedIndex = 0;
+            tscbOrderDirection.SelectedIndex = 0;
         }
 
         //En la carga vamos a "bindear" o enlazar el origen de datos del DataGrid a una propiedad de tipo BindingList de nuestro controlador,
@@ -38,31 +41,35 @@ namespace EjercicioProductos.view
         //Gestiona las pulsaciones en celdas del datagrid
         private void HandleDataGridCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgProductsGrid.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
-            DataGridViewRow row = dgProductsGrid.Rows[e.RowIndex];
-            DataGridViewTextBoxCell cell = row.Cells["Id"] as DataGridViewTextBoxCell;
-            String cod = cell.Value as String;
-            switch (dgProductsGrid.CurrentCell.OwningColumn.Name)
+            if (!(e.RowIndex == -1)) //Evitamos los clicks en los títulos
             {
-                case "seleccionado":
-                    if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
-                        controller.SelectedProducts.Add(cod);
-                    else
-                        controller.SelectedProducts.Remove(cod);
-                    break;
+                dgProductsGrid.EndEdit(); //Es necesario actualizar los cambios antes de extraer los productos seleccionados, ya que si se consulta la lista sin salir del foco del último checkbox no se registra ese último
+                DataGridViewRow row = dgProductsGrid.Rows[e.RowIndex];
+                DataGridViewTextBoxCell cell = row.Cells["Id"] as DataGridViewTextBoxCell;
+                String cod = cell.Value as String;
+                switch (dgProductsGrid.CurrentCell.OwningColumn.Name)
+                {
+                    case "seleccionado":
+                        if (Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Seleccionado"]).Value))
+                            controller.SelectedProducts.Add(cod);
+                        else
+                            controller.SelectedProducts.Remove(cod);
+                        break;
 
-                case "iconoEditar":
-                    RemoveFilters();
-                    ProductModify pr = new ProductModify(cod);
-                    pr.ShowDialog();
-                    break;
+                    case "iconoEditar":
+                        //RemoveFilters();
+                        ProductModify pr = new ProductModify(cod);
+                        pr.ShowDialog();
+                        break;
 
-                case "iconoEliminar":
-                    RemoveFilters();
-                    controller.EliminaProducto(cod);
-                    break;
-                default: break;
+                    case "iconoEliminar":
+                        //RemoveFilters();
+                        controller.EliminaProducto(cod);
+                        break;
+                    default: break;
+                }
             }
+            
         }
 
         //Apertura del formulario de registro de producto
@@ -90,7 +97,7 @@ namespace EjercicioProductos.view
             int rowsToDelete = controller.SelectedProducts.Count;
             if (rowsToDelete > 0)
             {
-                RemoveFilters();
+                //RemoveFilters();
                 if (rowsToDelete == 1)
                 {
                     ProductModify pm = new ProductModify(controller.SelectedProducts[0]);
@@ -116,13 +123,13 @@ namespace EjercicioProductos.view
                                 MessageBoxIcon.Information);
         }
 
-
-
-
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProduct(object sender, EventArgs e)
         {
-            controller.ProductList.Add(new Product("a", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            //controller.ProductList.Add(new Product("a", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            //dgProductsGrid.DataSource.DefaultView.RowFilter = "Tipo = 'RAM'";
+            controller.UpdateShowingProducts();
+            dgProductsGrid.Refresh();
         }
         //Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductB(object sender, EventArgs e)
@@ -131,7 +138,8 @@ namespace EjercicioProductos.view
         }//Botón auxiliar para rellenar la lista rápidamente y debgear
         private void CreateDemoProductC(object sender, EventArgs e)
         {
-            controller.ProductList.Add(new Product("c", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            controller.RegisterNewProduct(new Product("c", "a", 1, 1, "a", EComputerPartType.RAM, new Bitmap(Properties.Resources.placeholderProduct)));
+            //controller.UpdateCurrentRows();
         }
 
 
@@ -197,31 +205,35 @@ namespace EjercicioProductos.view
                                 MessageBoxIcon.Information);
         }
 
-        private void RemoveFilters(object sender, EventArgs e)
-        {
-            RemoveFilters();
-        }
-
         private void RemoveFilters()
         {
             //Limpiamos todos los campos de filtro
             tbNameFilter.Text = tbCodeFilter.Text = tbQuantityFilter.Text = tbPriceFIlter.Text = cbTypeFilter.Text = String.Empty;
             //Limpiamos los filtros del controlador
             controller.Filter.Values.ToList().ForEach(value => value = String.Empty);
-            controller.ApplyFilters();
+            controller.UpdateShowingProducts();
         }
 
+        //Notifica de que el filtro ha sido modificado
         private void FilterModified(object sender, KeyEventArgs e)
         {
             ToolStripTextBox writedElement = (ToolStripTextBox)sender;
 
             controller.Filter[(String)writedElement.Tag] = writedElement.Text;
 
-            /*controller.Filter["Id"] = tbCodeFilter.Text;
-            controller.Filter["Name"] = tbNameFilter.Text;
-            controller.Filter["Quantity"] = tbQuantityFilter.Text;
-            controller.Filter["Price"] = tbPriceFIlter.Text;*/
-            controller.ApplyFilters();
+            controller.UpdateShowingProducts();
+        }
+
+        //Gestiona el cambio de tipo en el filtro, ya que es un combo
+        private void TypeFilterModified(object sender, EventArgs e)
+        {
+            controller.Filter["Type"] = cbTypeFilter.Text;
+            controller.UpdateShowingProducts();
+        }
+
+        private void RemoveFilters(object sender, EventArgs e)
+        {
+            RemoveFilters();
         }
 
         private void OpenAboutForm(object sender, EventArgs e)
@@ -230,10 +242,29 @@ namespace EjercicioProductos.view
             af.ShowDialog();
         }
 
-        private void TypeFilterModified(object sender, EventArgs e)
+        //Establece el campo con el que se va a ordenar
+        private void SetOrderingRules(object sender, EventArgs e)
         {
-            controller.Filter["Type"] = cbTypeFilter.Text;
-            controller.ApplyFilters();
+            String field = "";
+            bool direction = (tscbOrderDirection.SelectedIndex == 0);
+            switch (tscbOrderField.SelectedIndex)
+            {
+                case 0: field = "Id"; break;
+                case 1: field = "Name"; break;
+                case 2: field = "Quantity"; break;
+                case 3: field = "Price"; break;
+                case 4: field = "Description"; break;
+                case 5: field = "Type"; break;
+            }
+            
+            controller.SetOrderingRules(field,direction);
         }
+        
+        //Cambia la dirección de ordenado
+        private void ChangeDirectionField(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
