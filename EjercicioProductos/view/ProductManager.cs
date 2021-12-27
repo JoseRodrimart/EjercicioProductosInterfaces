@@ -242,7 +242,7 @@ namespace EjercicioProductos.view
             af.ShowDialog();
         }
 
-        //Establece el campo con el que se va a ordenar
+        //Establece el critero de ordenamiento
         private void SetOrderingRules(object sender, EventArgs e)
         {
             String field = "";
@@ -256,15 +256,33 @@ namespace EjercicioProductos.view
                 case 4: field = "Description"; break;
                 case 5: field = "Type"; break;
             }
-            
+
             controller.SetOrderingRules(field,direction);
         }
-        
-        //Cambia la dirección de ordenado
-        private void ChangeDirectionField(object sender, EventArgs e)
-        {
+       
 
+        //En la casilla de cantidad solo dejamos numeros
+        private void tbQuantityFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            {
+                e.Handled = true;
+            }
         }
 
+        //En la de precio, numeros y comas
+        private void tbPriceFIlter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == ',') && ((sender as ToolStripTextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
