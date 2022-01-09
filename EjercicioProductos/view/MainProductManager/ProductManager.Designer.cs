@@ -32,6 +32,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManager));
             this.dgProductsGrid = new System.Windows.Forms.DataGridView();
+            this.SelectCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Imagen = new System.Windows.Forms.DataGridViewImageColumn();
+            this.EditButton = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DeleteButton = new System.Windows.Forms.DataGridViewImageColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,9 +65,6 @@
             this.tscbOrderDirection = new System.Windows.Forms.ToolStripComboBox();
             this.tscbOrderField = new System.Windows.Forms.ToolStripComboBox();
             this.tslOrdenar = new System.Windows.Forms.ToolStripLabel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.dExport = new System.Windows.Forms.SaveFileDialog();
             this.dImport = new System.Windows.Forms.OpenFileDialog();
             this.tsFilters = new System.Windows.Forms.ToolStrip();
@@ -79,16 +86,6 @@
             this.cbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbClearFilters = new System.Windows.Forms.ToolStripButton();
-            this.seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Imagen = new System.Windows.Forms.DataGridViewImageColumn();
-            this.iconoEditar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.iconoEliminar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgProductsGrid)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.topStrip.SuspendLayout();
@@ -109,7 +106,7 @@
             this.dgProductsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dgProductsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.seleccionado,
+            this.SelectCheckBox,
             this.Id,
             this.Nombre,
             this.Cantidad,
@@ -117,8 +114,8 @@
             this.Descripcion,
             this.Tipo,
             this.Imagen,
-            this.iconoEditar,
-            this.iconoEliminar});
+            this.EditButton,
+            this.DeleteButton});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -144,6 +141,85 @@
             this.dgProductsGrid.Size = new System.Drawing.Size(1005, 542);
             this.dgProductsGrid.TabIndex = 0;
             this.dgProductsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HandleDataGridCellClick);
+            // 
+            // SelectCheckBox
+            // 
+            this.SelectCheckBox.FillWeight = 20F;
+            this.SelectCheckBox.HeaderText = "";
+            this.SelectCheckBox.Name = "SelectCheckBox";
+            this.SelectCheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.SelectCheckBox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Name";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.DataPropertyName = "Quantity";
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
+            // 
+            // Precio
+            // 
+            this.Precio.DataPropertyName = "Price";
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            this.Precio.ReadOnly = true;
+            // 
+            // Descripcion
+            // 
+            this.Descripcion.DataPropertyName = "Description";
+            this.Descripcion.HeaderText = "Descripción";
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.ReadOnly = true;
+            // 
+            // Tipo
+            // 
+            this.Tipo.DataPropertyName = "Type";
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
+            // 
+            // Imagen
+            // 
+            this.Imagen.DataPropertyName = "Image";
+            this.Imagen.HeaderText = "Imagen";
+            this.Imagen.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Imagen.Name = "Imagen";
+            this.Imagen.ReadOnly = true;
+            this.Imagen.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // EditButton
+            // 
+            this.EditButton.FillWeight = 20F;
+            this.EditButton.HeaderText = "";
+            this.EditButton.Image = ((System.Drawing.Image)(resources.GetObject("EditButton.Image")));
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.EditButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.FillWeight = 20F;
+            this.DeleteButton.HeaderText = "";
+            this.DeleteButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteButton.Image")));
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.DeleteButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.DeleteButton.ToolTipText = "eliminar producto";
             // 
             // menuStrip1
             // 
@@ -366,36 +442,6 @@
             this.tslOrdenar.Size = new System.Drawing.Size(74, 22);
             this.tslOrdenar.Text = "Ordenar por:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(930, 571);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.CreateDemoProduct);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(849, 571);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.CreateDemoProductB);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(768, 571);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.CreateDemoProductC);
-            // 
             // dExport
             // 
             this.dExport.Filter = "Fichero CSV | *.csv";
@@ -561,94 +607,12 @@
             this.tsbClearFilters.Text = "Limpiar filtros";
             this.tsbClearFilters.Click += new System.EventHandler(this.RemoveFilters);
             // 
-            // seleccionado
-            // 
-            this.seleccionado.FillWeight = 20F;
-            this.seleccionado.HeaderText = "";
-            this.seleccionado.Name = "seleccionado";
-            this.seleccionado.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.seleccionado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "Name";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.DataPropertyName = "Quantity";
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
-            // 
-            // Precio
-            // 
-            this.Precio.DataPropertyName = "Price";
-            this.Precio.HeaderText = "Precio";
-            this.Precio.Name = "Precio";
-            this.Precio.ReadOnly = true;
-            // 
-            // Descripcion
-            // 
-            this.Descripcion.DataPropertyName = "Description";
-            this.Descripcion.HeaderText = "Descripción";
-            this.Descripcion.Name = "Descripcion";
-            this.Descripcion.ReadOnly = true;
-            // 
-            // Tipo
-            // 
-            this.Tipo.DataPropertyName = "Type";
-            this.Tipo.HeaderText = "Tipo";
-            this.Tipo.Name = "Tipo";
-            this.Tipo.ReadOnly = true;
-            // 
-            // Imagen
-            // 
-            this.Imagen.DataPropertyName = "Image";
-            this.Imagen.HeaderText = "Imagen";
-            this.Imagen.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Imagen.Name = "Imagen";
-            this.Imagen.ReadOnly = true;
-            this.Imagen.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // iconoEditar
-            // 
-            this.iconoEditar.FillWeight = 20F;
-            this.iconoEditar.HeaderText = "";
-            this.iconoEditar.Image = ((System.Drawing.Image)(resources.GetObject("iconoEditar.Image")));
-            this.iconoEditar.Name = "iconoEditar";
-            this.iconoEditar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.iconoEditar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // iconoEliminar
-            // 
-            this.iconoEliminar.FillWeight = 20F;
-            this.iconoEliminar.HeaderText = "";
-            this.iconoEliminar.Image = ((System.Drawing.Image)(resources.GetObject("iconoEliminar.Image")));
-            this.iconoEliminar.Name = "iconoEliminar";
-            this.iconoEliminar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.iconoEliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.iconoEliminar.ToolTipText = "eliminar producto";
-            // 
             // ProductManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 630);
             this.Controls.Add(this.tsFilters);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.topStrip);
             this.Controls.Add(this.dgProductsGrid);
             this.Controls.Add(this.menuStrip1);
@@ -657,7 +621,7 @@
             this.Name = "ProductManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Computer Product Manager 0.1";
-            this.Load += new System.EventHandler(this.ProductManager_Load);
+            this.Shown += new System.EventHandler(this.ProductManagerShownEvent);
             ((System.ComponentModel.ISupportInitialize)(this.dgProductsGrid)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -686,9 +650,6 @@
         private ToolStripButton tsbCreateProduct;
         private ToolStripButton tsbEditProducts;
         private ToolStripButton tsbRemoveProducts;
-        private Button button1;
-        private Button button2;
-        private Button button3;
         private SaveFileDialog dExport;
         private OpenFileDialog dImport;
         private ToolStrip tsFilters;
@@ -720,7 +681,7 @@
         private ToolStripComboBox tscbOrderDirection;
         private ToolStripComboBox tscbOrderField;
         private ToolStripLabel tslOrdenar;
-        private DataGridViewCheckBoxColumn seleccionado;
+        private DataGridViewCheckBoxColumn SelectCheckBox;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Cantidad;
@@ -728,7 +689,7 @@
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn Tipo;
         private DataGridViewImageColumn Imagen;
-        private DataGridViewImageColumn iconoEditar;
-        private DataGridViewImageColumn iconoEliminar;
+        private DataGridViewImageColumn EditButton;
+        private DataGridViewImageColumn DeleteButton;
     }
 }

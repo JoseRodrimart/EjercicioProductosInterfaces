@@ -136,7 +136,7 @@ namespace EjercicioProductos.model
         public override string ToString()
         {
             string img;
-            if (Image.Tag != null && Image.Tag == "placeholder") { //Si no hay imagen guardad, asignamos el placeholder
+            if (Image.Tag != null && Image.Tag.ToString() == "placeholder") { //Si no hay imagen guardad, asignamos el placeholder
                 img = "";
             }
             else //Si la hay, la convertimos a base64
@@ -169,6 +169,11 @@ namespace EjercicioProductos.model
             }
         }
 
+        //Cuando copias un array, hay paso por referencia, por lo que añadimos este método para poder copiar Productos sin referenciar al original.
+        internal Product Clone()
+        {
+            return new Product(Id,Name,Quantity,Price,Description,Type,Image);
+        }
     }
 
     //Enumerador con los posibles tipos de producto

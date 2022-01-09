@@ -18,7 +18,7 @@ namespace EjercicioProductos.view
         public ProductoModifyMultiple() : base()
         {
             InitializeComponent();
-            controller.GetSelectedProducts().ForEach(p=>products.Add(p));
+            controller.GetSelectedProducts().ForEach(p=>products.Add(p.Clone()));
             //oldProducts = products;
             currentPos = 0;
             DrawModifyingProduct();
