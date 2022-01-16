@@ -82,7 +82,7 @@
             this.tbName.Location = new System.Drawing.Point(148, 116);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(256, 23);
-            this.tbName.TabIndex = 3;
+            this.tbName.TabIndex = 1;
             this.tbName.TextChanged += new System.EventHandler(this.NameChanged);
             this.tbName.Leave += new System.EventHandler(this.NameChanged);
             // 
@@ -103,7 +103,7 @@
             this.tbId.Location = new System.Drawing.Point(148, 84);
             this.tbId.Name = "tbId";
             this.tbId.Size = new System.Drawing.Size(256, 23);
-            this.tbId.TabIndex = 1;
+            this.tbId.TabIndex = 0;
             this.tbId.TextChanged += new System.EventHandler(this.IdTextChanged);
             this.tbId.Leave += new System.EventHandler(this.IdTextChanged);
             // 
@@ -143,7 +143,7 @@
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(256, 74);
-            this.tbDescription.TabIndex = 11;
+            this.tbDescription.TabIndex = 5;
             this.tbDescription.TextChanged += new System.EventHandler(this.DescriptionChanged);
             // 
             // lType
@@ -170,7 +170,7 @@
             this.cbType.Location = new System.Drawing.Point(148, 212);
             this.cbType.Name = "cbType";
             this.cbType.Size = new System.Drawing.Size(154, 23);
-            this.cbType.TabIndex = 9;
+            this.cbType.TabIndex = 4;
             this.cbType.ValueMember = "Seleccione";
             this.cbType.SelectedIndexChanged += new System.EventHandler(this.IndexChanged);
             // 
@@ -191,7 +191,7 @@
             this.bRegister.Location = new System.Drawing.Point(316, 680);
             this.bRegister.Name = "bRegister";
             this.bRegister.Size = new System.Drawing.Size(75, 23);
-            this.bRegister.TabIndex = 13;
+            this.bRegister.TabIndex = 8;
             this.bRegister.Text = "Registrar";
             this.bRegister.UseVisualStyleBackColor = true;
             this.bRegister.Click += new System.EventHandler(this.RegisterProduct);
@@ -202,7 +202,7 @@
             this.bCancel.Location = new System.Drawing.Point(397, 680);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(75, 23);
-            this.bCancel.TabIndex = 14;
+            this.bCancel.TabIndex = 9;
             this.bCancel.Text = "Cancelar";
             this.bCancel.UseVisualStyleBackColor = true;
             this.bCancel.Click += new System.EventHandler(this.CancelRegister);
@@ -217,7 +217,7 @@
             0});
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(91, 23);
-            this.nudQuantity.TabIndex = 5;
+            this.nudQuantity.TabIndex = 2;
             this.nudQuantity.Value = new decimal(new int[] {
             1,
             0,
@@ -240,7 +240,7 @@
             131072});
             this.nudPrice.Name = "nudPrice";
             this.nudPrice.Size = new System.Drawing.Size(91, 23);
-            this.nudPrice.TabIndex = 15;
+            this.nudPrice.TabIndex = 3;
             this.nudPrice.Value = new decimal(new int[] {
             1,
             0,
@@ -300,14 +300,14 @@
             this.tbImagePath.Location = new System.Drawing.Point(148, 336);
             this.tbImagePath.Name = "tbImagePath";
             this.tbImagePath.Size = new System.Drawing.Size(222, 23);
-            this.tbImagePath.TabIndex = 18;
+            this.tbImagePath.TabIndex = 6;
             // 
             // bSelectImage
             // 
             this.bSelectImage.Location = new System.Drawing.Point(376, 336);
             this.bSelectImage.Name = "bSelectImage";
             this.bSelectImage.Size = new System.Drawing.Size(28, 23);
-            this.bSelectImage.TabIndex = 19;
+            this.bSelectImage.TabIndex = 7;
             this.bSelectImage.Text = "...";
             this.bSelectImage.UseVisualStyleBackColor = true;
             this.bSelectImage.Click += new System.EventHandler(this.SelectImage);
