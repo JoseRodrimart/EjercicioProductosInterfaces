@@ -35,7 +35,7 @@ namespace EjercicioProductos.view
         //No nos deja guardar si dejamos en blanco el nombre
         protected override void ValidateRegister()
         {
-            if (tbName.Text.Length > 0) bRegister.Enabled = true;
+            if (tbName.Text.Length > 0 && !InvalidCharactersInFields()) bRegister.Enabled = true;
             else bRegister.Enabled = false;
         }
 

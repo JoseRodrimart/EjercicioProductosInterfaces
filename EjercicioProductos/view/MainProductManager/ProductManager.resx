@@ -173,6 +173,16 @@
   <metadata name="topStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <data name="tsbImport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADeSURBVDhPvdOxTsJQAIXhK4mbg4wdfCNDWNzkARx8GdCB
+        sLGwGCdGRkdcnZ3cnCQhEKP8f9tLbqzQ2sGTfMmF3nMCJISa3OGxOLbLAi/FsV3+Z6CDa0zxULqFSQd8
+        Lz73rh274R7fWOGtNIRJB3wvPv+AHbthgzlOffEjh76Cd+3YzZdGHpJc4hxx4Ax9nCDGjt3KQBefeMYS
+        r3jCFy4Qc3DADOCIz2T5BmmODpg48lvZ1A6YHq6KYyWNBo5lP+BHHHv4Y+zYzX/hLfzXTRryrh27IcMM
+        71g35F06IdsBw25bJVUYs1wAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="tbsExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -182,16 +192,6 @@
         cAPoQhkMA8DOBtnMzLwKFC4wQ0EYKA4zAKwZJIZhAFBjG0gzLOCQMVDdCSC+DNMMjN5OTAMYGbeh24wN
         Ay3pBOnDMACYsHzQFWPDMH1YA5EYPAgNEBQU5MemEBsWFxfnBuoBpROwAbDMhD0n4sYgPW9A2TkQyHgF
         FSAFv2ZmZg4FABMpzgM83SafAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="tsbImport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADeSURBVDhPvdOxTsJQAIXhK4mbg4wdfCNDWNzkARx8GdCB
-        sLGwGCdGRkdcnZ3cnCQhEKP8f9tLbqzQ2sGTfMmF3nMCJISa3OGxOLbLAi/FsV3+Z6CDa0zxULqFSQd8
-        Lz73rh274R7fWOGtNIRJB3wvPv+AHbthgzlOffEjh76Cd+3YzZdGHpJc4hxx4Ax9nCDGjt3KQBefeMYS
-        r3jCFy4Qc3DADOCIz2T5BmmODpg48lvZ1A6YHq6KYyWNBo5lP+BHHHv4Y+zYzX/hLfzXTRryrh27IcMM
-        71g35F06IdsBw25bJVUYs1wAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="tsbCreateProduct.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

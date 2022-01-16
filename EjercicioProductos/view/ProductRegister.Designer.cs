@@ -48,20 +48,22 @@
             this.ttCursorCod = new System.Windows.Forms.ToolTip(this.components);
             this.errEmptyId = new System.Windows.Forms.ErrorProvider(this.components);
             this.errNotAvailableId = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorCharacter = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrEmptyName = new System.Windows.Forms.ErrorProvider(this.components);
             this.lImage = new System.Windows.Forms.Label();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.dialogImagePicker = new System.Windows.Forms.OpenFileDialog();
             this.tbImagePath = new System.Windows.Forms.TextBox();
             this.bSelectImage = new System.Windows.Forms.Button();
+            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errEmptyId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorCharacter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrEmptyName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
             // 
             // lName
@@ -142,6 +144,7 @@
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(256, 74);
             this.tbDescription.TabIndex = 11;
+            this.tbDescription.TextChanged += new System.EventHandler(this.DescriptionChanged);
             // 
             // lType
             // 
@@ -259,10 +262,10 @@
             this.errNotAvailableId.ContainerControl = this;
             this.errNotAvailableId.Icon = ((System.Drawing.Icon)(resources.GetObject("errNotAvailableId.Icon")));
             // 
-            // errorProvider1
+            // errorCharacter
             // 
-            this.errorProvider1.ContainerControl = this;
-            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            this.errorCharacter.ContainerControl = this;
+            this.errorCharacter.Icon = ((System.Drawing.Icon)(resources.GetObject("errorCharacter.Icon")));
             // 
             // ErrEmptyName
             // 
@@ -309,6 +312,11 @@
             this.bSelectImage.UseVisualStyleBackColor = true;
             this.bSelectImage.Click += new System.EventHandler(this.SelectImage);
             // 
+            // errorProvider2
+            // 
+            this.errorProvider2.ContainerControl = this;
+            this.errorProvider2.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider2.Icon")));
+            // 
             // ProductRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -345,9 +353,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errEmptyId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNotAvailableId)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorCharacter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrEmptyName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,7 +371,7 @@
         private Label lType;
         private Button bCancel;
         private ErrorProvider errEmptyId;
-        private ErrorProvider errorProvider1;
+        private ErrorProvider errorCharacter;
         private ErrorProvider ErrEmptyName;
         protected Button bRegister;
         protected TextBox tbName;
@@ -380,5 +389,6 @@
         private TextBox tbImagePath;
         protected PictureBox pbImage;
         protected Button bSelectImage;
+        protected ErrorProvider errorProvider2;
     }
 }

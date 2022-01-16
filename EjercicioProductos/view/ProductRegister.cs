@@ -43,8 +43,14 @@ namespace EjercicioProductos.view
         //Nos impide registrar cuando no hay id, nombre, tipo o la id coincide con uno ya existente
         protected virtual void ValidateRegister()
         {
-            if(tbId.Text.Length != 0 && tbName.Text.Length != 0 && cbType.SelectedItem != null && idAvailable) bRegister.Enabled = true;
+            if(tbId.Text.Length != 0 && tbName.Text.Length != 0 && cbType.SelectedItem != null && idAvailable && !InvalidCharactersInFields()) bRegister.Enabled = true;
             else bRegister.Enabled = false;    
+        }
+
+        //Comprueba que no haya en ningún campo alguno de los caracteres no permitidos
+        protected bool InvalidCharactersInFields()
+        {
+            return (tbName.Text.Contains('"') || tbId.Text.Contains('"') || tbDescription.Text.Contains('"'));
         }
 
         private void CancelRegister(object sender, EventArgs e)
@@ -59,18 +65,25 @@ namespace EjercicioProductos.view
 
         private void NameChanged(object sender, EventArgs e)
         {
+            errorCharacter.Clear();
+            ErrEmptyName.Clear();
+            if (((TextBox)sender).Text.Contains('"')){
+                errorCharacter.SetError((TextBox)sender, "No se permite el uso del caracter \"");
+            }
             if (((TextBox)sender).Text == "")
             {
                 ErrEmptyName.SetError((TextBox)sender, "el nombre no puede estar vacío");
                 ErrEmptyName.SetIconPadding((TextBox)sender, iconPadding);
             }
-            else
-                ErrEmptyName.Clear();
             ValidateRegister();
         }
 
         protected virtual void IdTextChanged(object sender, EventArgs e)
         {
+            if (((TextBox)sender).Text.Contains('"'))
+            {
+                errorCharacter.SetError((TextBox)sender, "No se permite el uso del caracter \"");
+            }
             if (((TextBox)sender).Text == "")
             {
                 errEmptyId.Clear();
@@ -120,6 +133,15 @@ namespace EjercicioProductos.view
                     fs.Close();
                 }
             }
+        }
+
+        private void DescriptionChanged(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text.Contains('"'))
+            {
+                errorCharacter.SetError((TextBox)sender, "No se permite el uso del caracter \"");
+            }
+                ValidateRegister();
         }
     }
 }

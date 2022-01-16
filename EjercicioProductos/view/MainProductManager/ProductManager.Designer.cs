@@ -46,7 +46,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +54,8 @@
             this.informaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.topStrip = new System.Windows.Forms.ToolStrip();
-            this.tbsExport = new System.Windows.Forms.ToolStripButton();
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
+            this.tbsExport = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbCreateProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbEditProducts = new System.Windows.Forms.ToolStripButton();
@@ -139,7 +139,8 @@
             this.dgProductsGrid.RowTemplate.Height = 50;
             this.dgProductsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgProductsGrid.Size = new System.Drawing.Size(1005, 542);
-            this.dgProductsGrid.TabIndex = 0;
+            this.dgProductsGrid.TabIndex = 1;
+            this.dgProductsGrid.TabStop = false;
             this.dgProductsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HandleDataGridCellClick);
             // 
             // SelectCheckBox
@@ -225,12 +226,12 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.productosToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1005, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -246,7 +247,9 @@
             // 
             this.importToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importToolStripMenuItem.Image")));
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.OpenImportDialog);
             // 
@@ -254,25 +257,28 @@
             // 
             this.exportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportToolStripMenuItem.Image")));
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.E)));
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.OpenExportDialog);
             // 
-            // productosToolStripMenuItem
+            // editToolStripMenuItem
             // 
-            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
             this.modificarToolStripMenuItem});
-            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.productosToolStripMenuItem.Text = "Productos";
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.editToolStripMenuItem.Text = "Editar";
             // 
             // insertarToolStripMenuItem
             // 
             this.insertarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("insertarToolStripMenuItem.Image")));
             this.insertarToolStripMenuItem.Name = "insertarToolStripMenuItem";
-            this.insertarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.insertarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.insertarToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.insertarToolStripMenuItem.Text = "Insertar";
             this.insertarToolStripMenuItem.Click += new System.EventHandler(this.RegisterProduct);
             // 
@@ -280,7 +286,8 @@
             // 
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.eliminarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.DeleteSelectedItems);
             // 
@@ -288,7 +295,8 @@
             // 
             this.modificarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("modificarToolStripMenuItem.Image")));
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.modificarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.EditSelectedProducts);
             // 
@@ -305,21 +313,24 @@
             // 
             this.informaciónToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("informaciónToolStripMenuItem.Image")));
             this.informaciónToolStripMenuItem.Name = "informaciónToolStripMenuItem";
-            this.informaciónToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.informaciónToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.informaciónToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.informaciónToolStripMenuItem.Text = "Información";
+            this.informaciónToolStripMenuItem.Click += new System.EventHandler(this.OpenAboutForm);
             // 
             // ayudaToolStripMenuItem1
             // 
             this.ayudaToolStripMenuItem1.Name = "ayudaToolStripMenuItem1";
-            this.ayudaToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+            this.ayudaToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.ayudaToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
             this.ayudaToolStripMenuItem1.Text = "Ayuda";
             // 
             // topStrip
             // 
             this.topStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.topStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbsExport,
             this.tsbImport,
+            this.tbsExport,
             this.toolStripSeparator1,
             this.tsbCreateProduct,
             this.tsbEditProducts,
@@ -333,18 +344,9 @@
             this.topStrip.Name = "topStrip";
             this.topStrip.Padding = new System.Windows.Forms.Padding(10, 0, 1, 0);
             this.topStrip.Size = new System.Drawing.Size(1005, 25);
-            this.topStrip.TabIndex = 2;
+            this.topStrip.TabIndex = 0;
+            this.topStrip.TabStop = true;
             this.topStrip.Text = "toolStrip1";
-            // 
-            // tbsExport
-            // 
-            this.tbsExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbsExport.Image = ((System.Drawing.Image)(resources.GetObject("tbsExport.Image")));
-            this.tbsExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbsExport.Name = "tbsExport";
-            this.tbsExport.Size = new System.Drawing.Size(23, 22);
-            this.tbsExport.Text = "Exportar";
-            this.tbsExport.Click += new System.EventHandler(this.OpenExportDialog);
             // 
             // tsbImport
             // 
@@ -355,6 +357,16 @@
             this.tsbImport.Size = new System.Drawing.Size(23, 22);
             this.tsbImport.Text = "Importar";
             this.tsbImport.Click += new System.EventHandler(this.OpenImportDialog);
+            // 
+            // tbsExport
+            // 
+            this.tbsExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbsExport.Image = ((System.Drawing.Image)(resources.GetObject("tbsExport.Image")));
+            this.tbsExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbsExport.Name = "tbsExport";
+            this.tbsExport.Size = new System.Drawing.Size(23, 22);
+            this.tbsExport.Text = "Exportar";
+            this.tbsExport.Click += new System.EventHandler(this.OpenExportDialog);
             // 
             // toolStripSeparator1
             // 
@@ -482,7 +494,8 @@
             this.tsFilters.Padding = new System.Windows.Forms.Padding(10, 5, 1, 5);
             this.tsFilters.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tsFilters.Size = new System.Drawing.Size(1005, 33);
-            this.tsFilters.TabIndex = 1;
+            this.tsFilters.TabIndex = 2;
+            this.tsFilters.TabStop = true;
             this.tsFilters.Text = "toolStrip2";
             // 
             // lFilter
@@ -641,7 +654,7 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
-        private ToolStripMenuItem productosToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem insertarToolStripMenuItem;
         private ToolStripMenuItem eliminarToolStripMenuItem;
         private ToolStripMenuItem modificarToolStripMenuItem;
